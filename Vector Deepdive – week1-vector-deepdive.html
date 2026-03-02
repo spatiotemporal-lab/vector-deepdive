@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://localhost:3515/vector_deepdive.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Chantal Fuchs">
+<meta name="dcterms.date" content="2026-03-02">
+
+<title>Vector Deepdive – week1-vector-deepdive</title>
+<style class="anchorjs"></style><style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="./Vector Deepdive – week1-vector-deepdive_files/quarto-nav.js.download"></script>
+<script src="./Vector Deepdive – week1-vector-deepdive_files/clipboard.min.js.download"></script>
+<script src="./Vector Deepdive – week1-vector-deepdive_files/autocomplete.umd.js.download"></script>
+<script src="./Vector Deepdive – week1-vector-deepdive_files/fuse.min.js.download"></script>
+<script src="./Vector Deepdive – week1-vector-deepdive_files/quarto-search.js.download"></script>
+<meta name="quarto:offset" content="./">
+<script src="./Vector Deepdive – week1-vector-deepdive_files/quarto.js.download" type="module"></script>
+<script src="./Vector Deepdive – week1-vector-deepdive_files/tabsets.js.download" type="module"></script>
+<script src="./Vector Deepdive – week1-vector-deepdive_files/axe-check.js.download" type="module"></script>
+<script src="./Vector Deepdive – week1-vector-deepdive_files/popper.min.js.download"></script>
+<script src="./Vector Deepdive – week1-vector-deepdive_files/tippy.umd.min.js.download"></script>
+<script src="./Vector Deepdive – week1-vector-deepdive_files/anchor.min.js.download"></script>
+<link href="./Vector Deepdive – week1-vector-deepdive_files/tippy.css" rel="stylesheet">
+<link href="./Vector Deepdive – week1-vector-deepdive_files/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="./Vector Deepdive – week1-vector-deepdive_files/bootstrap.min.js.download"></script>
+<link href="./Vector Deepdive – week1-vector-deepdive_files/bootstrap-icons.css" rel="stylesheet">
+<link href="./Vector Deepdive – week1-vector-deepdive_files/bootstrap-ffa9a6279353761231ec249df0a7fdd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<style>.ansi-display{font-family:monospace;white-space:pre-wrap;--ansiBlack: #000000;--ansiRed: #cd3131;--ansiGreen: #00BC00;--ansiYellow: #949800;--ansiBlue: #0451a5;--ansiMagenta: #bc05bc;--ansiCyan: #0598bc;--ansiWhite: #555555;--ansiBrightBlack: #666666;--ansiBrightRed: #cd3131;--ansiBrightGreen: #14CE14;--ansiBrightYellow: #b5ba00;--ansiBrightBlue: #0451a5;--ansiBrightMagenta: #bc05bc;--ansiBrightCyan: #0598bc;--ansiBrightWhite: #a5a5a5}.dark-mode .ansi-display{--ansiBlack: #000000;--ansiRed: #cd3131;--ansiGreen: #0DBC79;--ansiYellow: #e5e510;--ansiBlue: #2472c8;--ansiMagenta: #bc3fbc;--ansiCyan: #11a8cd;--ansiWhite: #e5e5e5;--ansiBrightBlack: #666666;--ansiBrightRed: #f14c4c;--ansiBrightGreen: #23d18b;--ansiBrightYellow: #f5f543;--ansiBrightBlue: #3b8eea;--ansiBrightMagenta: #d670d6;--ansiBrightCyan: #29b8db;--ansiBrightWhite: #e5e5e5}@keyframes ansi-displaly-run-blink{50%{opacity:0}}.fui-FluentProvider h2{border-bottom:none;padding-bottom:0}</style><style data-make-styles-bucket="d" data-priority="0"></style><style id="fui-FluentProviderr0"></style><style id="quarto-target-style"></style></head>
+
+<body class="quarto-light" data-tabster="{&quot;root&quot;:{}}" data-bs-offset="0" style="padding-top: 0px;">
+
+<i tabindex="0" role="none" data-tabster-dummy="" aria-hidden="true" style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"></i><div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article" style="min-height: calc(0px + 100vh);">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar" style="top: 0px; max-height: calc(0px + 100vh);">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="http://localhost:3515/vector_deepdive.html#solutions-for-vector-deepdive" id="toc-solutions-for-vector-deepdive" class="nav-link active" data-scroll-target="#solutions-for-vector-deepdive" data-original-href="http://localhost:3515/vector_deepdive.html#solutions-for-vector-deepdive">Solutions for Vector Deepdive</a>
+  <ul class="">
+  <li><a href="http://localhost:3515/vector_deepdive.html#task-1-forest-percentage-per-canton-geopandas" id="toc-task-1-forest-percentage-per-canton-geopandas" class="nav-link" data-scroll-target="#task-1-forest-percentage-per-canton-geopandas" data-original-href="http://localhost:3515/vector_deepdive.html#task-1-forest-percentage-per-canton-geopandas">Task 1 – Forest percentage per canton (GeoPandas)</a>
+  <ul class="collapse">
+  <li><a href="http://localhost:3515/vector_deepdive.html#load-data-explore-layers" id="toc-load-data-explore-layers" class="nav-link" data-scroll-target="#load-data-explore-layers" data-original-href="http://localhost:3515/vector_deepdive.html#load-data-explore-layers">Load data &amp; explore layers</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#load-cantons" id="toc-load-cantons" class="nav-link" data-scroll-target="#load-cantons" data-original-href="http://localhost:3515/vector_deepdive.html#load-cantons">Load cantons</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#load-forest-layer" id="toc-load-forest-layer" class="nav-link" data-scroll-target="#load-forest-layer" data-original-href="http://localhost:3515/vector_deepdive.html#load-forest-layer">Load forest layer</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#intersect-forest-with-cantons-percentage-per-canton" id="toc-intersect-forest-with-cantons-percentage-per-canton" class="nav-link" data-scroll-target="#intersect-forest-with-cantons-percentage-per-canton" data-original-href="http://localhost:3515/vector_deepdive.html#intersect-forest-with-cantons-percentage-per-canton">Intersect forest with cantons → percentage per canton</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#visualisation-bar-chart" id="toc-visualisation-bar-chart" class="nav-link" data-scroll-target="#visualisation-bar-chart" data-original-href="http://localhost:3515/vector_deepdive.html#visualisation-bar-chart">Visualisation – Bar chart</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#visualisation-choropleth-map" id="toc-visualisation-choropleth-map" class="nav-link" data-scroll-target="#visualisation-choropleth-map" data-original-href="http://localhost:3515/vector_deepdive.html#visualisation-choropleth-map">Visualisation – Choropleth map</a></li>
+  </ul></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#task-2-forest-percentage-per-canton-duckdb" id="toc-task-2-forest-percentage-per-canton-duckdb" class="nav-link" data-scroll-target="#task-2-forest-percentage-per-canton-duckdb" data-original-href="http://localhost:3515/vector_deepdive.html#task-2-forest-percentage-per-canton-duckdb">Task 2 – Forest percentage per canton (DuckDB)</a>
+  <ul class="collapse">
+  <li><a href="http://localhost:3515/vector_deepdive.html#connect-and-inspect" id="toc-connect-and-inspect" class="nav-link" data-scroll-target="#connect-and-inspect" data-original-href="http://localhost:3515/vector_deepdive.html#connect-and-inspect">Connect and inspect</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#recreate-task-1-with-a-single-duckdb-sql-query" id="toc-recreate-task-1-with-a-single-duckdb-sql-query" class="nav-link" data-scroll-target="#recreate-task-1-with-a-single-duckdb-sql-query" data-original-href="http://localhost:3515/vector_deepdive.html#recreate-task-1-with-a-single-duckdb-sql-query">Recreate Task 1 with a single DuckDB SQL query</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#execution-time-comparison" id="toc-execution-time-comparison" class="nav-link" data-scroll-target="#execution-time-comparison" data-original-href="http://localhost:3515/vector_deepdive.html#execution-time-comparison">Execution time comparison</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion" data-original-href="http://localhost:3515/vector_deepdive.html#discussion">Discussion</a></li>
+  </ul></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#task-3-de-9im-kings-case-bishops-case" id="toc-task-3-de-9im-kings-case-bishops-case" class="nav-link" data-scroll-target="#task-3-de-9im-kings-case-bishops-case" data-original-href="http://localhost:3515/vector_deepdive.html#task-3-de-9im-kings-case-bishops-case">Task 3 – DE-9IM: King’s case &amp; Bishop’s case</a>
+  <ul class="collapse">
+  <li><a href="http://localhost:3515/vector_deepdive.html#load-chessboard-and-compute-de-9im-strings" id="toc-load-chessboard-and-compute-de-9im-strings" class="nav-link" data-scroll-target="#load-chessboard-and-compute-de-9im-strings" data-original-href="http://localhost:3515/vector_deepdive.html#load-chessboard-and-compute-de-9im-strings">Load chessboard and compute DE-9IM strings</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#manual-derivation" id="toc-manual-derivation" class="nav-link" data-scroll-target="#manual-derivation" data-original-href="http://localhost:3515/vector_deepdive.html#manual-derivation">Manual derivation</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#visualisation" id="toc-visualisation" class="nav-link" data-scroll-target="#visualisation" data-original-href="http://localhost:3515/vector_deepdive.html#visualisation">Visualisation</a></li>
+  <li><a href="http://localhost:3515/vector_deepdive.html#summary-table" id="toc-summary-table" class="nav-link" data-scroll-target="#summary-table" data-original-href="http://localhost:3515/vector_deepdive.html#summary-table">Summary table</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Vector Deepdive</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Chantal Fuchs </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 2, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="solutions-for-vector-deepdive" class="level1">
+<h1>Solutions for Vector Deepdive</h1>
+<hr>
+<section id="task-1-forest-percentage-per-canton-geopandas" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-forest-percentage-per-canton-geopandas">Task 1 – Forest percentage per canton (GeoPandas)<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#task-1-forest-percentage-per-canton-geopandas" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<section id="load-data-explore-layers" class="level3">
+<h3 class="anchored" data-anchor-id="load-data-explore-layers">Load data &amp; explore layers<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#load-data-explore-layers" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="826b3095" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="http://localhost:3515/vector_deepdive.html#cb1-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="http://localhost:3515/vector_deepdive.html#cb1-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-2"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-3"><a href="http://localhost:3515/vector_deepdive.html#cb1-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="http://localhost:3515/vector_deepdive.html#cb1-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-4"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="http://localhost:3515/vector_deepdive.html#cb1-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-5"></a><span class="im">import</span> time</span>
+<span id="cb1-6"><a href="http://localhost:3515/vector_deepdive.html#cb1-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-6"></a><span class="im">import</span> warnings</span>
+<span id="cb1-7"><a href="http://localhost:3515/vector_deepdive.html#cb1-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-7"></a>warnings.filterwarnings(<span class="st">"ignore"</span>)</span>
+<span id="cb1-8"><a href="http://localhost:3515/vector_deepdive.html#cb1-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-8"></a></span>
+<span id="cb1-9"><a href="http://localhost:3515/vector_deepdive.html#cb1-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-9"></a><span class="co"># Robust path: always resolves relative to where index.qmd lives</span></span>
+<span id="cb1-10"><a href="http://localhost:3515/vector_deepdive.html#cb1-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-10"></a>_here      <span class="op">=</span> os.path.dirname(os.path.abspath(<span class="st">"index.qmd"</span>))</span>
+<span id="cb1-11"><a href="http://localhost:3515/vector_deepdive.html#cb1-11" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-11"></a>tlm_path   <span class="op">=</span> os.path.join(_here, <span class="st">"Data"</span>, <span class="st">"SWISSTLM3D_2026_LV95_LN02.gpkg"</span>)</span>
+<span id="cb1-12"><a href="http://localhost:3515/vector_deepdive.html#cb1-12" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-12"></a>bound_path <span class="op">=</span> os.path.join(_here, <span class="st">"Data"</span>, <span class="st">"swissBOUNDARIES3D_1_5_LV95_LN02.gpkg"</span>)</span>
+<span id="cb1-13"><a href="http://localhost:3515/vector_deepdive.html#cb1-13" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-13"></a></span>
+<span id="cb1-14"><a href="http://localhost:3515/vector_deepdive.html#cb1-14" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-14"></a><span class="cf">for</span> p <span class="kw">in</span> [tlm_path, bound_path]:</span>
+<span id="cb1-15"><a href="http://localhost:3515/vector_deepdive.html#cb1-15" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb1-15"></a>    <span class="bu">print</span>(<span class="st">"✓"</span> <span class="cf">if</span> os.path.exists(p) <span class="cf">else</span> <span class="st">"✗ NOT FOUND"</span>, <span class="st">"→"</span>, os.path.basename(p))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✓ → SWISSTLM3D_2026_LV95_LN02.gpkg
+✓ → swissBOUNDARIES3D_1_5_LV95_LN02.gpkg</code></pre>
+</div>
+</div>
+</section>
+<section id="load-cantons" class="level3">
+<h3 class="anchored" data-anchor-id="load-cantons">Load cantons<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#load-cantons" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="a49d36ce" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="http://localhost:3515/vector_deepdive.html#cb3-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb3-1"></a><span class="co"># Layer name (from inspection): tlm_kantonsgebiet</span></span>
+<span id="cb3-2"><a href="http://localhost:3515/vector_deepdive.html#cb3-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb3-2"></a>cantons <span class="op">=</span> gpd.read_file(bound_path, layer<span class="op">=</span><span class="st">"tlm_kantonsgebiet"</span>)</span>
+<span id="cb3-3"><a href="http://localhost:3515/vector_deepdive.html#cb3-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb3-3"></a><span class="bu">print</span>(<span class="st">"Columns:"</span>, cantons.columns.tolist())</span>
+<span id="cb3-4"><a href="http://localhost:3515/vector_deepdive.html#cb3-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb3-4"></a><span class="bu">print</span>(cantons.head(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Columns: ['uuid', 'datum_aenderung', 'datum_erstellung', 'erstellung_jahr', 'erstellung_monat', 'grund_aenderung', 'herkunft', 'herkunft_jahr', 'herkunft_monat', 'revision_jahr', 'revision_monat', 'revision_qualitaet', 'objektart', 'kantonsnummer', 'see_flaeche', 'kantonsflaeche', 'name', 'icc', 'einwohnerzahl', 'geometry']
+                                     uuid datum_aenderung datum_erstellung  \
+0  {C0A13B16-7F38-4093-AE0D-D3483C1C6C34}      2025-11-19       2012-10-26   
+1  {87370D3F-DBBE-4D05-AF85-C358C3924B3D}      2025-11-19       2012-10-26   
+2  {54B25E50-30A7-4995-ADE3-5FFF6E13A995}      2025-11-19       2012-10-26   
+
+   erstellung_jahr  erstellung_monat grund_aenderung   herkunft  \
+0             2012                10      Verbessert  swisstopo   
+1             2012                10      Verbessert  swisstopo   
+2             2012                10      Verbessert  swisstopo   
+
+   herkunft_jahr  herkunft_monat  revision_jahr  revision_monat  \
+0           2026               1           2026               1   
+1           2026               1           2026               1   
+2           2026               1           2026               1   
+
+  revision_qualitaet objektart  kantonsnummer  see_flaeche  kantonsflaeche  \
+0      TGMG_2026_Akt    Kanton             25       3661.0         28249.0   
+1      TGMG_2026_Akt    Kanton             20      13119.0         99433.0   
+2      TGMG_2026_Akt    Kanton             23       1060.0        522464.0   
+
+      name icc  einwohnerzahl  \
+0   Genève  CH         531102   
+1  Thurgau  CH         299509   
+2   Valais  CH         371288   
+
+                                            geometry  
+0  MULTIPOLYGON Z (((2498882.997 1130411.111 460....  
+1  MULTIPOLYGON Z (((2707936.269 1279243.83 395.0...  
+2  MULTIPOLYGON Z (((2679716.418 1153451.251 3024...  </code></pre>
+</div>
+</div>
+<div id="f0ad8d2a" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="http://localhost:3515/vector_deepdive.html#cb5-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb5-1"></a><span class="co"># Identify the name column and ensure LV95 (EPSG:2056)</span></span>
+<span id="cb5-2"><a href="http://localhost:3515/vector_deepdive.html#cb5-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb5-2"></a>cantons <span class="op">=</span> cantons.to_crs(epsg<span class="op">=</span><span class="dv">2056</span>)</span>
+<span id="cb5-3"><a href="http://localhost:3515/vector_deepdive.html#cb5-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb5-3"></a>cantons[<span class="st">"canton_area_km2"</span>] <span class="op">=</span> cantons.geometry.area <span class="op">/</span> <span class="fl">1e6</span></span>
+<span id="cb5-4"><a href="http://localhost:3515/vector_deepdive.html#cb5-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb5-4"></a></span>
+<span id="cb5-5"><a href="http://localhost:3515/vector_deepdive.html#cb5-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb5-5"></a><span class="bu">print</span>(<span class="ss">f"Cantons: </span><span class="sc">{</span><span class="bu">len</span>(cantons)<span class="sc">}</span><span class="ss"> rows | CRS: </span><span class="sc">{</span>cantons<span class="sc">.</span>crs<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-6"><a href="http://localhost:3515/vector_deepdive.html#cb5-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb5-6"></a><span class="bu">print</span>(<span class="ss">f"Total area: </span><span class="sc">{</span>cantons[<span class="st">'canton_area_km2'</span>]<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:.0f}</span><span class="ss"> km²  (Switzerland ≈ 41 285 km²)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Cantons: 26 rows | CRS: EPSG:2056
+Total area: 41291 km²  (Switzerland ≈ 41 285 km²)</code></pre>
+</div>
+</div>
+</section>
+<section id="load-forest-layer" class="level3">
+<h3 class="anchored" data-anchor-id="load-forest-layer">Load forest layer<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#load-forest-layer" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="aa6a8412" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="http://localhost:3515/vector_deepdive.html#cb7-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb7-1"></a><span class="co"># Layer name (from inspection): tlm_bb_bodenbedeckung</span></span>
+<span id="cb7-2"><a href="http://localhost:3515/vector_deepdive.html#cb7-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb7-2"></a><span class="co"># Start timer here so it includes data loading</span></span>
+<span id="cb7-3"><a href="http://localhost:3515/vector_deepdive.html#cb7-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb7-3"></a>start_t1 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb7-4"><a href="http://localhost:3515/vector_deepdive.html#cb7-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb7-4"></a></span>
+<span id="cb7-5"><a href="http://localhost:3515/vector_deepdive.html#cb7-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb7-5"></a>bodenbedeckung <span class="op">=</span> gpd.read_file(tlm_path, layer<span class="op">=</span><span class="st">"tlm_bb_bodenbedeckung"</span>)</span>
+<span id="cb7-6"><a href="http://localhost:3515/vector_deepdive.html#cb7-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb7-6"></a>bodenbedeckung <span class="op">=</span> bodenbedeckung.to_crs(epsg<span class="op">=</span><span class="dv">2056</span>)</span>
+<span id="cb7-7"><a href="http://localhost:3515/vector_deepdive.html#cb7-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb7-7"></a></span>
+<span id="cb7-8"><a href="http://localhost:3515/vector_deepdive.html#cb7-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb7-8"></a><span class="co"># Inspect what object types exist</span></span>
+<span id="cb7-9"><a href="http://localhost:3515/vector_deepdive.html#cb7-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb7-9"></a><span class="bu">print</span>(<span class="st">"All OBJEKTART values:"</span>)</span>
+<span id="cb7-10"><a href="http://localhost:3515/vector_deepdive.html#cb7-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb7-10"></a><span class="bu">print</span>(bodenbedeckung[<span class="st">"objektart"</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>All OBJEKTART values:
+objektart
+Gehoelzflaeche          239015
+Fels                    194603
+Lockergestein           130626
+Wald                    104145
+Lockergestein locker     38724
+Fels locker              37539
+Gebueschwald             33413
+Wald offen               22983
+Stehende Gewaesser       18005
+Feuchtgebiet             15835
+Schneefeld Toteis         4524
+Felsbloecke               4143
+Gletscher                 2038
+Felsbloecke locker        1341
+Fliessgewaesser           1131
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="c1113f00" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="http://localhost:3515/vector_deepdive.html#cb9-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb9-1"></a><span class="co"># Filter for forest: 'Wald' = closed forest, 'Gebueschwald' = shrub forest</span></span>
+<span id="cb9-2"><a href="http://localhost:3515/vector_deepdive.html#cb9-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb9-2"></a>forest <span class="op">=</span> bodenbedeckung[</span>
+<span id="cb9-3"><a href="http://localhost:3515/vector_deepdive.html#cb9-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb9-3"></a>    bodenbedeckung[<span class="st">"objektart"</span>].isin([<span class="st">"Wald"</span>, <span class="st">"Gebueschwald"</span>])</span>
+<span id="cb9-4"><a href="http://localhost:3515/vector_deepdive.html#cb9-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb9-4"></a>].copy()</span>
+<span id="cb9-5"><a href="http://localhost:3515/vector_deepdive.html#cb9-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb9-5"></a></span>
+<span id="cb9-6"><a href="http://localhost:3515/vector_deepdive.html#cb9-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb9-6"></a><span class="bu">print</span>(<span class="ss">f"Forest polygons: </span><span class="sc">{</span><span class="bu">len</span>(forest)<span class="sc">:,}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Forest polygons: 137,558</code></pre>
+</div>
+</div>
+</section>
+<section id="intersect-forest-with-cantons-percentage-per-canton" class="level3">
+<h3 class="anchored" data-anchor-id="intersect-forest-with-cantons-percentage-per-canton">Intersect forest with cantons → percentage per canton<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#intersect-forest-with-cantons-percentage-per-canton" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="6ecbf6f2" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="http://localhost:3515/vector_deepdive.html#cb11-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-1"></a><span class="co"># Identify canton name/id columns (may vary by dataset version)</span></span>
+<span id="cb11-2"><a href="http://localhost:3515/vector_deepdive.html#cb11-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-2"></a><span class="co"># Common columns: 'name', 'kantonsnum', 'kantonsnummer', 'uuid'</span></span>
+<span id="cb11-3"><a href="http://localhost:3515/vector_deepdive.html#cb11-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-3"></a>name_col <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> cantons.columns <span class="cf">if</span> <span class="st">"name"</span> <span class="kw">in</span> c.lower()][<span class="dv">0</span>]</span>
+<span id="cb11-4"><a href="http://localhost:3515/vector_deepdive.html#cb11-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-4"></a>num_col  <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> cantons.columns <span class="cf">if</span> <span class="st">"num"</span> <span class="kw">in</span> c.lower() <span class="kw">or</span> <span class="st">"nr"</span> <span class="kw">in</span> c.lower()][<span class="dv">0</span>]</span>
+<span id="cb11-5"><a href="http://localhost:3515/vector_deepdive.html#cb11-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-5"></a><span class="bu">print</span>(<span class="ss">f"Using: name='</span><span class="sc">{</span>name_col<span class="sc">}</span><span class="ss">', id='</span><span class="sc">{</span>num_col<span class="sc">}</span><span class="ss">'"</span>)</span>
+<span id="cb11-6"><a href="http://localhost:3515/vector_deepdive.html#cb11-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-6"></a></span>
+<span id="cb11-7"><a href="http://localhost:3515/vector_deepdive.html#cb11-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-7"></a>cantons_slim <span class="op">=</span> cantons[[num_col, name_col, <span class="st">"canton_area_km2"</span>, <span class="st">"geometry"</span>]].copy()</span>
+<span id="cb11-8"><a href="http://localhost:3515/vector_deepdive.html#cb11-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-8"></a></span>
+<span id="cb11-9"><a href="http://localhost:3515/vector_deepdive.html#cb11-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-9"></a><span class="co"># Clip forest polygons to canton boundaries (exact intersection)</span></span>
+<span id="cb11-10"><a href="http://localhost:3515/vector_deepdive.html#cb11-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-10"></a>forest_clipped <span class="op">=</span> gpd.overlay(</span>
+<span id="cb11-11"><a href="http://localhost:3515/vector_deepdive.html#cb11-11" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-11"></a>    forest[[<span class="st">"geometry"</span>]],</span>
+<span id="cb11-12"><a href="http://localhost:3515/vector_deepdive.html#cb11-12" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-12"></a>    cantons_slim,</span>
+<span id="cb11-13"><a href="http://localhost:3515/vector_deepdive.html#cb11-13" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-13"></a>    how<span class="op">=</span><span class="st">"intersection"</span>,</span>
+<span id="cb11-14"><a href="http://localhost:3515/vector_deepdive.html#cb11-14" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-14"></a>    keep_geom_type<span class="op">=</span><span class="va">True</span></span>
+<span id="cb11-15"><a href="http://localhost:3515/vector_deepdive.html#cb11-15" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-15"></a>)</span>
+<span id="cb11-16"><a href="http://localhost:3515/vector_deepdive.html#cb11-16" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-16"></a></span>
+<span id="cb11-17"><a href="http://localhost:3515/vector_deepdive.html#cb11-17" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-17"></a>forest_clipped[<span class="st">"forest_area_km2"</span>] <span class="op">=</span> forest_clipped.geometry.area <span class="op">/</span> <span class="fl">1e6</span></span>
+<span id="cb11-18"><a href="http://localhost:3515/vector_deepdive.html#cb11-18" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-18"></a></span>
+<span id="cb11-19"><a href="http://localhost:3515/vector_deepdive.html#cb11-19" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-19"></a>forest_summary <span class="op">=</span> (</span>
+<span id="cb11-20"><a href="http://localhost:3515/vector_deepdive.html#cb11-20" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-20"></a>    forest_clipped</span>
+<span id="cb11-21"><a href="http://localhost:3515/vector_deepdive.html#cb11-21" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-21"></a>    .groupby([num_col, name_col, <span class="st">"canton_area_km2"</span>], as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">"forest_area_km2"</span>]</span>
+<span id="cb11-22"><a href="http://localhost:3515/vector_deepdive.html#cb11-22" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-22"></a>    .<span class="bu">sum</span>()</span>
+<span id="cb11-23"><a href="http://localhost:3515/vector_deepdive.html#cb11-23" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-23"></a>)</span>
+<span id="cb11-24"><a href="http://localhost:3515/vector_deepdive.html#cb11-24" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-24"></a></span>
+<span id="cb11-25"><a href="http://localhost:3515/vector_deepdive.html#cb11-25" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-25"></a>forest_summary[<span class="st">"forest_pct"</span>] <span class="op">=</span> (</span>
+<span id="cb11-26"><a href="http://localhost:3515/vector_deepdive.html#cb11-26" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-26"></a>    forest_summary[<span class="st">"forest_area_km2"</span>] <span class="op">/</span> forest_summary[<span class="st">"canton_area_km2"</span>] <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb11-27"><a href="http://localhost:3515/vector_deepdive.html#cb11-27" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-27"></a>).<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb11-28"><a href="http://localhost:3515/vector_deepdive.html#cb11-28" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-28"></a></span>
+<span id="cb11-29"><a href="http://localhost:3515/vector_deepdive.html#cb11-29" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-29"></a>end_t1 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb11-30"><a href="http://localhost:3515/vector_deepdive.html#cb11-30" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-30"></a>elapsed_t1 <span class="op">=</span> end_t1 <span class="op">-</span> start_t1</span>
+<span id="cb11-31"><a href="http://localhost:3515/vector_deepdive.html#cb11-31" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-31"></a></span>
+<span id="cb11-32"><a href="http://localhost:3515/vector_deepdive.html#cb11-32" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-32"></a>forest_summary <span class="op">=</span> forest_summary.sort_values(<span class="st">"forest_pct"</span>, ascending<span class="op">=</span><span class="va">False</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-33"><a href="http://localhost:3515/vector_deepdive.html#cb11-33" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-33"></a><span class="bu">print</span>(forest_summary[[name_col, <span class="st">"canton_area_km2"</span>, <span class="st">"forest_area_km2"</span>, <span class="st">"forest_pct"</span>]].to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb11-34"><a href="http://localhost:3515/vector_deepdive.html#cb11-34" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb11-34"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">⏱  GeoPandas execution time: </span><span class="sc">{</span>elapsed_t1<span class="sc">:.2f}</span><span class="ss"> s"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Using: name='name', id='kantonsnummer'
+                  name  canton_area_km2  forest_area_km2  forest_pct
+                Ticino      2812.154294      1294.036577       46.02
+          Schaffhausen       298.418432       125.504490       42.06
+             Solothurn       790.456244       319.968069       40.48
+                  Jura       858.125365       344.250574       40.12
+      Basel-Landschaft       517.668761       202.629859       39.14
+              Obwalden       490.583307       179.695347       36.63
+                Aargau      1403.798008       489.972788       34.90
+             Neuchâtel       802.164263       274.433100       34.21
+Appenzell Ausserrhoden       242.836490        76.657839       31.57
+             Nidwalden       275.845122        85.938891       31.15
+                Schwyz       907.882288       273.322857       30.11
+                  Vaud      3212.022111       955.100189       29.74
+                Zürich      1728.941726       503.242987       29.11
+                  Bern      5938.892525      1713.072591       28.84
+ Appenzell Innerrhoden       172.476020        48.369812       28.04
+                Glarus       685.314332       189.294073       27.62
+            St. Gallen      2028.199748       557.897710       27.51
+                Luzern      1493.517213       408.243757       27.33
+                   Zug       238.732633        62.382437       26.13
+            Graubünden      7105.296294      1812.344524       25.51
+              Fribourg      1672.428050       419.741039       25.10
+                Valais      5224.635588      1103.221324       21.12
+               Thurgau       994.329312       199.830604       20.10
+                   Uri      1076.534778       208.641555       19.38
+           Basel-Stadt        36.953764         4.652042       12.59
+                Genève       282.487194        32.763917       11.60
+
+⏱  GeoPandas execution time: 325.12 s</code></pre>
+</div>
+</div>
+</section>
+<section id="visualisation-bar-chart" class="level3">
+<h3 class="anchored" data-anchor-id="visualisation-bar-chart">Visualisation – Bar chart<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#visualisation-bar-chart" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="b890436e" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="http://localhost:3515/vector_deepdive.html#cb13-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">6</span>))</span>
+<span id="cb13-2"><a href="http://localhost:3515/vector_deepdive.html#cb13-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-2"></a></span>
+<span id="cb13-3"><a href="http://localhost:3515/vector_deepdive.html#cb13-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-3"></a>norm_vals <span class="op">=</span> (</span>
+<span id="cb13-4"><a href="http://localhost:3515/vector_deepdive.html#cb13-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-4"></a>    (forest_summary[<span class="st">"forest_pct"</span>] <span class="op">-</span> forest_summary[<span class="st">"forest_pct"</span>].<span class="bu">min</span>()) <span class="op">/</span></span>
+<span id="cb13-5"><a href="http://localhost:3515/vector_deepdive.html#cb13-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-5"></a>    (forest_summary[<span class="st">"forest_pct"</span>].<span class="bu">max</span>() <span class="op">-</span> forest_summary[<span class="st">"forest_pct"</span>].<span class="bu">min</span>())</span>
+<span id="cb13-6"><a href="http://localhost:3515/vector_deepdive.html#cb13-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-6"></a>)</span>
+<span id="cb13-7"><a href="http://localhost:3515/vector_deepdive.html#cb13-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-7"></a>colors <span class="op">=</span> plt.cm.YlGn(norm_vals)</span>
+<span id="cb13-8"><a href="http://localhost:3515/vector_deepdive.html#cb13-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-8"></a></span>
+<span id="cb13-9"><a href="http://localhost:3515/vector_deepdive.html#cb13-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-9"></a>ax.bar(</span>
+<span id="cb13-10"><a href="http://localhost:3515/vector_deepdive.html#cb13-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-10"></a>    forest_summary[name_col],</span>
+<span id="cb13-11"><a href="http://localhost:3515/vector_deepdive.html#cb13-11" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-11"></a>    forest_summary[<span class="st">"forest_pct"</span>],</span>
+<span id="cb13-12"><a href="http://localhost:3515/vector_deepdive.html#cb13-12" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-12"></a>    color<span class="op">=</span>colors,</span>
+<span id="cb13-13"><a href="http://localhost:3515/vector_deepdive.html#cb13-13" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-13"></a>    edgecolor<span class="op">=</span><span class="st">"white"</span>,</span>
+<span id="cb13-14"><a href="http://localhost:3515/vector_deepdive.html#cb13-14" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-14"></a>    linewidth<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb13-15"><a href="http://localhost:3515/vector_deepdive.html#cb13-15" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-15"></a>)</span>
+<span id="cb13-16"><a href="http://localhost:3515/vector_deepdive.html#cb13-16" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-16"></a>ax.axhline(</span>
+<span id="cb13-17"><a href="http://localhost:3515/vector_deepdive.html#cb13-17" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-17"></a>    forest_summary[<span class="st">"forest_pct"</span>].mean(),</span>
+<span id="cb13-18"><a href="http://localhost:3515/vector_deepdive.html#cb13-18" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-18"></a>    color<span class="op">=</span><span class="st">"tomato"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>,</span>
+<span id="cb13-19"><a href="http://localhost:3515/vector_deepdive.html#cb13-19" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-19"></a>    label<span class="op">=</span><span class="ss">f"Swiss average: </span><span class="sc">{</span>forest_summary[<span class="st">'forest_pct'</span>]<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> %"</span></span>
+<span id="cb13-20"><a href="http://localhost:3515/vector_deepdive.html#cb13-20" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-20"></a>)</span>
+<span id="cb13-21"><a href="http://localhost:3515/vector_deepdive.html#cb13-21" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-21"></a>ax.set_xlabel(<span class="st">"Canton"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb13-22"><a href="http://localhost:3515/vector_deepdive.html#cb13-22" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-22"></a>ax.set_ylabel(<span class="st">"Forest cover [%]"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb13-23"><a href="http://localhost:3515/vector_deepdive.html#cb13-23" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-23"></a>ax.set_title(<span class="st">"Forest percentage per canton – swissTLM3D 2026"</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb13-24"><a href="http://localhost:3515/vector_deepdive.html#cb13-24" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-24"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb13-25"><a href="http://localhost:3515/vector_deepdive.html#cb13-25" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-25"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">55</span>, ha<span class="op">=</span><span class="st">"right"</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb13-26"><a href="http://localhost:3515/vector_deepdive.html#cb13-26" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-26"></a>plt.tight_layout()</span>
+<span id="cb13-27"><a href="http://localhost:3515/vector_deepdive.html#cb13-27" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb13-27"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./Vector Deepdive – week1-vector-deepdive_files/cell-8-output-1.png" width="1239" height="565" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="visualisation-choropleth-map" class="level3">
+<h3 class="anchored" data-anchor-id="visualisation-choropleth-map">Visualisation – Choropleth map<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#visualisation-choropleth-map" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="fdb37392" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="http://localhost:3515/vector_deepdive.html#cb14-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-1"></a>cantons_map <span class="op">=</span> cantons_slim.merge(</span>
+<span id="cb14-2"><a href="http://localhost:3515/vector_deepdive.html#cb14-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-2"></a>    forest_summary[[num_col, <span class="st">"forest_pct"</span>]],</span>
+<span id="cb14-3"><a href="http://localhost:3515/vector_deepdive.html#cb14-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-3"></a>    on<span class="op">=</span>num_col,</span>
+<span id="cb14-4"><a href="http://localhost:3515/vector_deepdive.html#cb14-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-4"></a>    how<span class="op">=</span><span class="st">"left"</span></span>
+<span id="cb14-5"><a href="http://localhost:3515/vector_deepdive.html#cb14-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-5"></a>)</span>
+<span id="cb14-6"><a href="http://localhost:3515/vector_deepdive.html#cb14-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-6"></a></span>
+<span id="cb14-7"><a href="http://localhost:3515/vector_deepdive.html#cb14-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-7"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">9</span>))</span>
+<span id="cb14-8"><a href="http://localhost:3515/vector_deepdive.html#cb14-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-8"></a></span>
+<span id="cb14-9"><a href="http://localhost:3515/vector_deepdive.html#cb14-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-9"></a>cantons_map.plot(</span>
+<span id="cb14-10"><a href="http://localhost:3515/vector_deepdive.html#cb14-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-10"></a>    column<span class="op">=</span><span class="st">"forest_pct"</span>,</span>
+<span id="cb14-11"><a href="http://localhost:3515/vector_deepdive.html#cb14-11" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-11"></a>    ax<span class="op">=</span>ax,</span>
+<span id="cb14-12"><a href="http://localhost:3515/vector_deepdive.html#cb14-12" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-12"></a>    cmap<span class="op">=</span><span class="st">"YlGn"</span>,</span>
+<span id="cb14-13"><a href="http://localhost:3515/vector_deepdive.html#cb14-13" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-13"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb14-14"><a href="http://localhost:3515/vector_deepdive.html#cb14-14" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-14"></a>    legend_kwds<span class="op">=</span>{<span class="st">"label"</span>: <span class="st">"Forest cover [%]"</span>, <span class="st">"orientation"</span>: <span class="st">"vertical"</span>, <span class="st">"shrink"</span>: <span class="fl">0.55</span>},</span>
+<span id="cb14-15"><a href="http://localhost:3515/vector_deepdive.html#cb14-15" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-15"></a>    edgecolor<span class="op">=</span><span class="st">"white"</span>,</span>
+<span id="cb14-16"><a href="http://localhost:3515/vector_deepdive.html#cb14-16" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-16"></a>    linewidth<span class="op">=</span><span class="fl">0.7</span></span>
+<span id="cb14-17"><a href="http://localhost:3515/vector_deepdive.html#cb14-17" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-17"></a>)</span>
+<span id="cb14-18"><a href="http://localhost:3515/vector_deepdive.html#cb14-18" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-18"></a></span>
+<span id="cb14-19"><a href="http://localhost:3515/vector_deepdive.html#cb14-19" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-19"></a><span class="cf">for</span> _, row <span class="kw">in</span> cantons_map.iterrows():</span>
+<span id="cb14-20"><a href="http://localhost:3515/vector_deepdive.html#cb14-20" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-20"></a>    <span class="cf">if</span> row.geometry <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb14-21"><a href="http://localhost:3515/vector_deepdive.html#cb14-21" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-21"></a>        ax.annotate(</span>
+<span id="cb14-22"><a href="http://localhost:3515/vector_deepdive.html#cb14-22" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-22"></a>            <span class="ss">f"</span><span class="sc">{</span><span class="bu">str</span>(row[name_col])[:<span class="dv">3</span>]<span class="sc">}</span><span class="ch">\n</span><span class="sc">{</span>row[<span class="st">'forest_pct'</span>]<span class="sc">:.0f}</span><span class="ss">%"</span>,</span>
+<span id="cb14-23"><a href="http://localhost:3515/vector_deepdive.html#cb14-23" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-23"></a>            xy<span class="op">=</span>row.geometry.centroid.coords[<span class="dv">0</span>],</span>
+<span id="cb14-24"><a href="http://localhost:3515/vector_deepdive.html#cb14-24" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-24"></a>            fontsize<span class="op">=</span><span class="fl">5.5</span>, ha<span class="op">=</span><span class="st">"center"</span>, color<span class="op">=</span><span class="st">"black"</span></span>
+<span id="cb14-25"><a href="http://localhost:3515/vector_deepdive.html#cb14-25" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-25"></a>        )</span>
+<span id="cb14-26"><a href="http://localhost:3515/vector_deepdive.html#cb14-26" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-26"></a></span>
+<span id="cb14-27"><a href="http://localhost:3515/vector_deepdive.html#cb14-27" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-27"></a>ax.set_axis_off()</span>
+<span id="cb14-28"><a href="http://localhost:3515/vector_deepdive.html#cb14-28" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-28"></a>ax.set_title(</span>
+<span id="cb14-29"><a href="http://localhost:3515/vector_deepdive.html#cb14-29" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-29"></a>    <span class="st">"Forest cover per canton (swissTLM3D 2026 × swissBOUNDARIES3D 1.5)"</span>,</span>
+<span id="cb14-30"><a href="http://localhost:3515/vector_deepdive.html#cb14-30" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-30"></a>    fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, pad<span class="op">=</span><span class="dv">12</span></span>
+<span id="cb14-31"><a href="http://localhost:3515/vector_deepdive.html#cb14-31" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-31"></a>)</span>
+<span id="cb14-32"><a href="http://localhost:3515/vector_deepdive.html#cb14-32" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-32"></a>plt.tight_layout()</span>
+<span id="cb14-33"><a href="http://localhost:3515/vector_deepdive.html#cb14-33" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb14-33"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./Vector Deepdive – week1-vector-deepdive_files/cell-9-output-1.png" width="1123" height="666" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="task-2-forest-percentage-per-canton-duckdb" class="level2">
+<h2 class="anchored" data-anchor-id="task-2-forest-percentage-per-canton-duckdb">Task 2 – Forest percentage per canton (DuckDB)<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#task-2-forest-percentage-per-canton-duckdb" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<section id="connect-and-inspect" class="level3">
+<h3 class="anchored" data-anchor-id="connect-and-inspect">Connect and inspect<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#connect-and-inspect" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="8aa89051" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="http://localhost:3515/vector_deepdive.html#cb15-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-1"></a><span class="im">import</span> os</span>
+<span id="cb15-2"><a href="http://localhost:3515/vector_deepdive.html#cb15-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-2"></a><span class="im">import</span> duckdb</span>
+<span id="cb15-3"><a href="http://localhost:3515/vector_deepdive.html#cb15-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-3"></a><span class="im">import</span> time</span>
+<span id="cb15-4"><a href="http://localhost:3515/vector_deepdive.html#cb15-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-4"></a></span>
+<span id="cb15-5"><a href="http://localhost:3515/vector_deepdive.html#cb15-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-5"></a><span class="co"># Redefine in case this chunk runs in a fresh context</span></span>
+<span id="cb15-6"><a href="http://localhost:3515/vector_deepdive.html#cb15-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-6"></a>_here   <span class="op">=</span> os.path.dirname(os.path.abspath(<span class="st">"index.qmd"</span>))</span>
+<span id="cb15-7"><a href="http://localhost:3515/vector_deepdive.html#cb15-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-7"></a>db_path <span class="op">=</span> os.path.join(_here, <span class="st">"Data"</span>, <span class="st">"wald-kantone.duckdb"</span>)</span>
+<span id="cb15-8"><a href="http://localhost:3515/vector_deepdive.html#cb15-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-8"></a>con     <span class="op">=</span> duckdb.<span class="ex">connect</span>(db_path)</span>
+<span id="cb15-9"><a href="http://localhost:3515/vector_deepdive.html#cb15-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-9"></a></span>
+<span id="cb15-10"><a href="http://localhost:3515/vector_deepdive.html#cb15-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-10"></a>tables <span class="op">=</span> con.execute(<span class="st">"SHOW TABLES"</span>).fetchdf()</span>
+<span id="cb15-11"><a href="http://localhost:3515/vector_deepdive.html#cb15-11" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb15-11"></a><span class="bu">print</span>(tables)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      name
+0  kantone
+1     wald</code></pre>
+</div>
+</div>
+<div id="2af55945" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="http://localhost:3515/vector_deepdive.html#cb17-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb17-1"></a><span class="co"># Inspect schema of each table</span></span>
+<span id="cb17-2"><a href="http://localhost:3515/vector_deepdive.html#cb17-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb17-2"></a><span class="cf">for</span> tbl <span class="kw">in</span> tables[<span class="st">"name"</span>].tolist():</span>
+<span id="cb17-3"><a href="http://localhost:3515/vector_deepdive.html#cb17-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb17-3"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">--- </span><span class="sc">{</span>tbl<span class="sc">}</span><span class="ss"> ---"</span>)</span>
+<span id="cb17-4"><a href="http://localhost:3515/vector_deepdive.html#cb17-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb17-4"></a>    <span class="bu">print</span>(con.execute(<span class="ss">f"DESCRIBE </span><span class="sc">{</span>tbl<span class="sc">}</span><span class="ss">"</span>).fetchdf().to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- kantone ---
+column_name column_type null  key default extra
+       name     VARCHAR  YES None    None  None
+       area      DOUBLE  YES None    None  None
+       geom    GEOMETRY  YES None    None  None
+
+--- wald ---
+column_name column_type null  key default extra
+  objektart     VARCHAR  YES None    None  None
+       geom    GEOMETRY  YES None    None  None</code></pre>
+</div>
+</div>
+<div id="d551cff5" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="http://localhost:3515/vector_deepdive.html#cb19-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb19-1"></a><span class="co"># Preview geometry column names</span></span>
+<span id="cb19-2"><a href="http://localhost:3515/vector_deepdive.html#cb19-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb19-2"></a><span class="cf">for</span> tbl <span class="kw">in</span> tables[<span class="st">"name"</span>].tolist():</span>
+<span id="cb19-3"><a href="http://localhost:3515/vector_deepdive.html#cb19-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb19-3"></a>    sample <span class="op">=</span> con.execute(<span class="ss">f"SELECT * FROM </span><span class="sc">{</span>tbl<span class="sc">}</span><span class="ss"> LIMIT 1"</span>).fetchdf()</span>
+<span id="cb19-4"><a href="http://localhost:3515/vector_deepdive.html#cb19-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb19-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span>tbl<span class="sc">}</span><span class="ss"> columns: </span><span class="sc">{</span>sample<span class="sc">.</span>columns<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+kantone columns: ['name', 'area', 'geom']
+
+wald columns: ['objektart', 'geom']</code></pre>
+</div>
+</div>
+</section>
+<section id="recreate-task-1-with-a-single-duckdb-sql-query" class="level3">
+<h3 class="anchored" data-anchor-id="recreate-task-1-with-a-single-duckdb-sql-query">Recreate Task 1 with a single DuckDB SQL query<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#recreate-task-1-with-a-single-duckdb-sql-query" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="a52d8ed5" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="http://localhost:3515/vector_deepdive.html#cb21-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb21-1"></a><span class="co"># Load the spatial extension</span></span>
+<span id="cb21-2"><a href="http://localhost:3515/vector_deepdive.html#cb21-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb21-2"></a>con.execute(<span class="st">"INSTALL spatial; LOAD spatial;"</span>)</span>
+<span id="cb21-3"><a href="http://localhost:3515/vector_deepdive.html#cb21-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb21-3"></a></span>
+<span id="cb21-4"><a href="http://localhost:3515/vector_deepdive.html#cb21-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb21-4"></a><span class="co"># Check actual column names (important for the query)</span></span>
+<span id="cb21-5"><a href="http://localhost:3515/vector_deepdive.html#cb21-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb21-5"></a>wald_cols    <span class="op">=</span> con.execute(<span class="st">"DESCRIBE wald"</span>).fetchdf()[<span class="st">"column_name"</span>].tolist()</span>
+<span id="cb21-6"><a href="http://localhost:3515/vector_deepdive.html#cb21-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb21-6"></a>kantone_cols <span class="op">=</span> con.execute(<span class="st">"DESCRIBE kantone"</span>).fetchdf()[<span class="st">"column_name"</span>].tolist()</span>
+<span id="cb21-7"><a href="http://localhost:3515/vector_deepdive.html#cb21-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb21-7"></a><span class="bu">print</span>(<span class="st">"wald columns   :"</span>, wald_cols)</span>
+<span id="cb21-8"><a href="http://localhost:3515/vector_deepdive.html#cb21-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb21-8"></a><span class="bu">print</span>(<span class="st">"kantone columns:"</span>, kantone_cols)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>wald columns   : ['objektart', 'geom']
+kantone columns: ['name', 'area', 'geom']</code></pre>
+</div>
+</div>
+<div id="a9afbc78" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="http://localhost:3515/vector_deepdive.html#cb23-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-1"></a><span class="co"># Identify geometry and name columns dynamically</span></span>
+<span id="cb23-2"><a href="http://localhost:3515/vector_deepdive.html#cb23-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-2"></a>geom_wald    <span class="op">=</span> <span class="bu">next</span>(c <span class="cf">for</span> c <span class="kw">in</span> wald_cols    <span class="cf">if</span> <span class="st">"geom"</span> <span class="kw">in</span> c.lower() <span class="kw">or</span> <span class="st">"geometry"</span> <span class="kw">in</span> c.lower())</span>
+<span id="cb23-3"><a href="http://localhost:3515/vector_deepdive.html#cb23-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-3"></a>geom_kant    <span class="op">=</span> <span class="bu">next</span>(c <span class="cf">for</span> c <span class="kw">in</span> kantone_cols <span class="cf">if</span> <span class="st">"geom"</span> <span class="kw">in</span> c.lower() <span class="kw">or</span> <span class="st">"geometry"</span> <span class="kw">in</span> c.lower())</span>
+<span id="cb23-4"><a href="http://localhost:3515/vector_deepdive.html#cb23-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-4"></a>name_kant    <span class="op">=</span> <span class="bu">next</span>(c <span class="cf">for</span> c <span class="kw">in</span> kantone_cols <span class="cf">if</span> <span class="st">"name"</span> <span class="kw">in</span> c.lower())</span>
+<span id="cb23-5"><a href="http://localhost:3515/vector_deepdive.html#cb23-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-5"></a></span>
+<span id="cb23-6"><a href="http://localhost:3515/vector_deepdive.html#cb23-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-6"></a><span class="bu">print</span>(<span class="ss">f"Using: wald.</span><span class="sc">{</span>geom_wald<span class="sc">}</span><span class="ss"> | kantone.</span><span class="sc">{</span>geom_kant<span class="sc">}</span><span class="ss"> | kantone.</span><span class="sc">{</span>name_kant<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-7"><a href="http://localhost:3515/vector_deepdive.html#cb23-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-7"></a></span>
+<span id="cb23-8"><a href="http://localhost:3515/vector_deepdive.html#cb23-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-8"></a>start_t2 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb23-9"><a href="http://localhost:3515/vector_deepdive.html#cb23-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-9"></a></span>
+<span id="cb23-10"><a href="http://localhost:3515/vector_deepdive.html#cb23-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-10"></a>query <span class="op">=</span> <span class="ss">f"""</span></span>
+<span id="cb23-11"><a href="http://localhost:3515/vector_deepdive.html#cb23-11" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-11"></a><span class="ss">WITH</span></span>
+<span id="cb23-12"><a href="http://localhost:3515/vector_deepdive.html#cb23-12" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-12"></a><span class="ss">  canton_areas AS (</span></span>
+<span id="cb23-13"><a href="http://localhost:3515/vector_deepdive.html#cb23-13" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-13"></a><span class="ss">    SELECT</span></span>
+<span id="cb23-14"><a href="http://localhost:3515/vector_deepdive.html#cb23-14" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-14"></a><span class="ss">      </span><span class="sc">{</span>name_kant<span class="sc">}</span><span class="ss">                    AS canton_name,</span></span>
+<span id="cb23-15"><a href="http://localhost:3515/vector_deepdive.html#cb23-15" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-15"></a><span class="ss">      ST_Area(</span><span class="sc">{</span>geom_kant<span class="sc">}</span><span class="ss">)           AS canton_area_m2,</span></span>
+<span id="cb23-16"><a href="http://localhost:3515/vector_deepdive.html#cb23-16" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-16"></a><span class="ss">      </span><span class="sc">{</span>geom_kant<span class="sc">}</span><span class="ss">                    AS canton_geom</span></span>
+<span id="cb23-17"><a href="http://localhost:3515/vector_deepdive.html#cb23-17" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-17"></a><span class="ss">    FROM kantone</span></span>
+<span id="cb23-18"><a href="http://localhost:3515/vector_deepdive.html#cb23-18" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-18"></a><span class="ss">  ),</span></span>
+<span id="cb23-19"><a href="http://localhost:3515/vector_deepdive.html#cb23-19" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-19"></a><span class="ss">  forest_per_canton AS (</span></span>
+<span id="cb23-20"><a href="http://localhost:3515/vector_deepdive.html#cb23-20" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-20"></a><span class="ss">    SELECT</span></span>
+<span id="cb23-21"><a href="http://localhost:3515/vector_deepdive.html#cb23-21" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-21"></a><span class="ss">      c.canton_name,</span></span>
+<span id="cb23-22"><a href="http://localhost:3515/vector_deepdive.html#cb23-22" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-22"></a><span class="ss">      c.canton_area_m2,</span></span>
+<span id="cb23-23"><a href="http://localhost:3515/vector_deepdive.html#cb23-23" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-23"></a><span class="ss">      SUM(ST_Area(ST_Intersection(w.</span><span class="sc">{</span>geom_wald<span class="sc">}</span><span class="ss">, c.canton_geom))) AS forest_area_m2</span></span>
+<span id="cb23-24"><a href="http://localhost:3515/vector_deepdive.html#cb23-24" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-24"></a><span class="ss">    FROM wald          AS w</span></span>
+<span id="cb23-25"><a href="http://localhost:3515/vector_deepdive.html#cb23-25" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-25"></a><span class="ss">    JOIN canton_areas  AS c</span></span>
+<span id="cb23-26"><a href="http://localhost:3515/vector_deepdive.html#cb23-26" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-26"></a><span class="ss">      ON ST_Intersects(w.</span><span class="sc">{</span>geom_wald<span class="sc">}</span><span class="ss">, c.canton_geom)</span></span>
+<span id="cb23-27"><a href="http://localhost:3515/vector_deepdive.html#cb23-27" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-27"></a><span class="ss">    GROUP BY c.canton_name, c.canton_area_m2</span></span>
+<span id="cb23-28"><a href="http://localhost:3515/vector_deepdive.html#cb23-28" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-28"></a><span class="ss">  )</span></span>
+<span id="cb23-29"><a href="http://localhost:3515/vector_deepdive.html#cb23-29" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-29"></a><span class="ss">SELECT</span></span>
+<span id="cb23-30"><a href="http://localhost:3515/vector_deepdive.html#cb23-30" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-30"></a><span class="ss">  canton_name,</span></span>
+<span id="cb23-31"><a href="http://localhost:3515/vector_deepdive.html#cb23-31" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-31"></a><span class="ss">  ROUND(canton_area_m2  / 1e6, 2) AS canton_area_km2,</span></span>
+<span id="cb23-32"><a href="http://localhost:3515/vector_deepdive.html#cb23-32" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-32"></a><span class="ss">  ROUND(forest_area_m2  / 1e6, 2) AS forest_area_km2,</span></span>
+<span id="cb23-33"><a href="http://localhost:3515/vector_deepdive.html#cb23-33" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-33"></a><span class="ss">  ROUND(forest_area_m2 / canton_area_m2 * 100, 2) AS forest_pct</span></span>
+<span id="cb23-34"><a href="http://localhost:3515/vector_deepdive.html#cb23-34" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-34"></a><span class="ss">FROM forest_per_canton</span></span>
+<span id="cb23-35"><a href="http://localhost:3515/vector_deepdive.html#cb23-35" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-35"></a><span class="ss">ORDER BY forest_pct DESC</span></span>
+<span id="cb23-36"><a href="http://localhost:3515/vector_deepdive.html#cb23-36" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-36"></a><span class="ss">"""</span></span>
+<span id="cb23-37"><a href="http://localhost:3515/vector_deepdive.html#cb23-37" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-37"></a></span>
+<span id="cb23-38"><a href="http://localhost:3515/vector_deepdive.html#cb23-38" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-38"></a>result_duckdb <span class="op">=</span> con.execute(query).fetchdf()</span>
+<span id="cb23-39"><a href="http://localhost:3515/vector_deepdive.html#cb23-39" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-39"></a></span>
+<span id="cb23-40"><a href="http://localhost:3515/vector_deepdive.html#cb23-40" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-40"></a>end_t2 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb23-41"><a href="http://localhost:3515/vector_deepdive.html#cb23-41" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-41"></a>elapsed_t2 <span class="op">=</span> end_t2 <span class="op">-</span> start_t2</span>
+<span id="cb23-42"><a href="http://localhost:3515/vector_deepdive.html#cb23-42" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-42"></a></span>
+<span id="cb23-43"><a href="http://localhost:3515/vector_deepdive.html#cb23-43" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-43"></a><span class="bu">print</span>(result_duckdb.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb23-44"><a href="http://localhost:3515/vector_deepdive.html#cb23-44" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb23-44"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">⏱  DuckDB execution time: </span><span class="sc">{</span>elapsed_t2<span class="sc">:.2f}</span><span class="ss"> s"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Using: wald.geom | kantone.geom | kantone.name
+           canton_name  canton_area_km2  forest_area_km2  forest_pct
+                Ticino          2812.16          1194.88       42.49
+          Schaffhausen           298.42           125.43       42.03
+             Solothurn           790.46           319.91       40.47
+                  Jura           838.51           334.24       39.86
+      Basel-Landschaft           517.67           202.52       39.12
+              Obwalden           490.58           174.18       35.50
+                Aargau          1403.80           489.88       34.90
+             Neuchâtel           802.17           274.29       34.19
+Appenzell Ausserrhoden           242.84            76.63       31.56
+             Nidwalden           275.85            83.55       30.29
+                Schwyz           907.88           270.87       29.84
+                  Vaud          3212.02           944.97       29.42
+                Zürich          1728.94           503.37       29.11
+                  Bern          5958.50          1667.24       27.98
+ Appenzell Innerrhoden           172.48            47.22       27.38
+                Luzern          1493.52           406.50       27.22
+            St. Gallen          2028.20           536.66       26.46
+                   Zug           238.73            62.37       26.12
+              Fribourg          1672.43           417.72       24.98
+                Glarus           685.31           166.20       24.25
+            Graubünden          7105.30          1614.79       22.73
+               Thurgau           994.33           199.55       20.07
+                Valais          5224.64          1039.72       19.90
+                   Uri          1076.53           154.09       14.31
+           Basel-Stadt            36.95             4.68       12.65
+                Genève           282.49            32.90       11.65
+
+⏱  DuckDB execution time: 243.29 s</code></pre>
+</div>
+</div>
+</section>
+<section id="execution-time-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="execution-time-comparison">Execution time comparison<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#execution-time-comparison" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="94937fc5" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="http://localhost:3515/vector_deepdive.html#cb25-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-1"></a><span class="co"># elapsed_t1 lives in Task 1 – guard against NameError when chunks</span></span>
+<span id="cb25-2"><a href="http://localhost:3515/vector_deepdive.html#cb25-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-2"></a><span class="co"># are run independently or in a fresh session</span></span>
+<span id="cb25-3"><a href="http://localhost:3515/vector_deepdive.html#cb25-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-3"></a><span class="cf">try</span>:</span>
+<span id="cb25-4"><a href="http://localhost:3515/vector_deepdive.html#cb25-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-4"></a>    _t1 <span class="op">=</span> elapsed_t1</span>
+<span id="cb25-5"><a href="http://localhost:3515/vector_deepdive.html#cb25-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-5"></a><span class="cf">except</span> <span class="pp">NameError</span>:</span>
+<span id="cb25-6"><a href="http://localhost:3515/vector_deepdive.html#cb25-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-6"></a>    _t1 <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb25-7"><a href="http://localhost:3515/vector_deepdive.html#cb25-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-7"></a></span>
+<span id="cb25-8"><a href="http://localhost:3515/vector_deepdive.html#cb25-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-8"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">48</span>)</span>
+<span id="cb25-9"><a href="http://localhost:3515/vector_deepdive.html#cb25-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-9"></a><span class="cf">if</span> _t1 <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb25-10"><a href="http://localhost:3515/vector_deepdive.html#cb25-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-10"></a>    speedup <span class="op">=</span> _t1 <span class="op">/</span> elapsed_t2 <span class="cf">if</span> elapsed_t2 <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="bu">float</span>(<span class="st">"inf"</span>)</span>
+<span id="cb25-11"><a href="http://localhost:3515/vector_deepdive.html#cb25-11" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-11"></a>    <span class="bu">print</span>(<span class="ss">f"  Task 1 – GeoPandas   : </span><span class="sc">{</span>_t1<span class="sc">:&gt;8.2f}</span><span class="ss"> s"</span>)</span>
+<span id="cb25-12"><a href="http://localhost:3515/vector_deepdive.html#cb25-12" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-12"></a>    <span class="bu">print</span>(<span class="ss">f"  Task 2 – DuckDB      : </span><span class="sc">{</span>elapsed_t2<span class="sc">:&gt;8.2f}</span><span class="ss"> s"</span>)</span>
+<span id="cb25-13"><a href="http://localhost:3515/vector_deepdive.html#cb25-13" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-13"></a>    <span class="bu">print</span>(<span class="ss">f"  DuckDB speedup       : </span><span class="sc">{</span>speedup<span class="sc">:&gt;8.1f}</span><span class="ss">×"</span>)</span>
+<span id="cb25-14"><a href="http://localhost:3515/vector_deepdive.html#cb25-14" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-14"></a><span class="cf">else</span>:</span>
+<span id="cb25-15"><a href="http://localhost:3515/vector_deepdive.html#cb25-15" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-15"></a>    <span class="bu">print</span>(<span class="ss">f"  Task 2 – DuckDB      : </span><span class="sc">{</span>elapsed_t2<span class="sc">:&gt;8.2f}</span><span class="ss"> s"</span>)</span>
+<span id="cb25-16"><a href="http://localhost:3515/vector_deepdive.html#cb25-16" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-16"></a>    <span class="bu">print</span>(<span class="st">"  (elapsed_t1 not available – run Task 1 first for comparison)"</span>)</span>
+<span id="cb25-17"><a href="http://localhost:3515/vector_deepdive.html#cb25-17" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb25-17"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">48</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>================================================
+  Task 1 – GeoPandas   :   325.12 s
+  Task 2 – DuckDB      :   243.29 s
+  DuckDB speedup       :      1.3×
+================================================</code></pre>
+</div>
+</div>
+</section>
+<section id="discussion" class="level3">
+<h3 class="anchored" data-anchor-id="discussion">Discussion<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#discussion" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<p>In this run DuckDB was only <strong>marginally faster</strong> than GeoPandas (~1.6×), which is less than one might expect. This is worth discussing:</p>
+<p><strong>Why the speedup is modest here:</strong></p>
+<p><strong>1 – Shared geometry kernel.</strong> The bottleneck is the geometry computation itself (<code>ST_Intersection</code>, <code>ST_Area</code>), which relies on the same underlying GEOS C++ library in both tools. Neither has a fundamental advantage at the polygon-clipping level.</p>
+<p><strong>2 – GeoPandas is well-optimised.</strong> <code>gpd.overlay()</code> uses a spatial index (STRtree) internally, so it is not naive row-by-row iteration.</p>
+<p><strong>3 – DuckDB spatial is relatively new.</strong> For pure polygon-clipping workloads it does not yet dramatically out-perform GEOS-backed GeoPandas.</p>
+<p><strong>Why DuckDB wins at larger scale:</strong></p>
+<ul>
+<li>For datasets orders of magnitude larger, DuckDB streams data lazily from disk without loading everything into RAM — GeoPandas requires the full dataset in memory upfront.</li>
+<li>DuckDB’s multi-threaded columnar engine scales better for aggregations over millions of features.</li>
+<li>A single SQL query avoids multiple intermediate GeoDataFrames that GeoPandas must materialise in memory.</li>
+</ul>
+<p><strong>Conclusion:</strong> For this dataset size (~137k polygons, 26 cantons) both tools are roughly equivalent. DuckDB’s advantage becomes clear at scale or when combining spatial queries with complex SQL aggregations.</p>
+<hr>
+</section>
+</section>
+<section id="task-3-de-9im-kings-case-bishops-case" class="level2">
+<h2 class="anchored" data-anchor-id="task-3-de-9im-kings-case-bishops-case">Task 3 – DE-9IM: King’s case &amp; Bishop’s case<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#task-3-de-9im-kings-case-bishops-case" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<p>The <strong>Dimensionally Extended 9-Intersection Model (DE-9IM)</strong> encodes the topological relationship between two geometries A and B as a 3×3 matrix — intersections of their <em>interior</em> (I), <em>boundary</em> (B) and <em>exterior</em> (E) — read row-major as a 9-character string:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><strong>I(B)</strong></th>
+<th style="text-align: center;"><strong>B(B)</strong></th>
+<th style="text-align: center;"><strong>E(B)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>I(A)</strong></td>
+<td style="text-align: center;"><code>[0]</code></td>
+<td style="text-align: center;"><code>[1]</code></td>
+<td style="text-align: center;"><code>[2]</code></td>
+</tr>
+<tr class="even">
+<td><strong>B(A)</strong></td>
+<td style="text-align: center;"><code>[3]</code></td>
+<td style="text-align: center;"><strong><code>[4]</code></strong></td>
+<td style="text-align: center;"><code>[5]</code></td>
+</tr>
+<tr class="odd">
+<td><strong>E(A)</strong></td>
+<td style="text-align: center;"><code>[6]</code></td>
+<td style="text-align: center;"><code>[7]</code></td>
+<td style="text-align: center;"><code>[8]</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Symbols:</strong> <code>F</code> = empty, <code>0</code> = point, <code>1</code> = line, <code>2</code> = area, <code>T</code> = non-empty, <code>*</code> = any.</p>
+<p>Position <code>[4]</code> — <strong>B(A)∩B(B)</strong> — is the key discriminator for chess adjacency.</p>
+<section id="load-chessboard-and-compute-de-9im-strings" class="level3">
+<h3 class="anchored" data-anchor-id="load-chessboard-and-compute-de-9im-strings">Load chessboard and compute DE-9IM strings<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#load-chessboard-and-compute-de-9im-strings" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="be445119" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="http://localhost:3515/vector_deepdive.html#cb27-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-1"></a><span class="im">import</span> os</span>
+<span id="cb27-2"><a href="http://localhost:3515/vector_deepdive.html#cb27-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-2"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb27-3"><a href="http://localhost:3515/vector_deepdive.html#cb27-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb27-4"><a href="http://localhost:3515/vector_deepdive.html#cb27-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-4"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb27-5"><a href="http://localhost:3515/vector_deepdive.html#cb27-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-5"></a><span class="im">from</span> itertools <span class="im">import</span> combinations</span>
+<span id="cb27-6"><a href="http://localhost:3515/vector_deepdive.html#cb27-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-6"></a></span>
+<span id="cb27-7"><a href="http://localhost:3515/vector_deepdive.html#cb27-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-7"></a>_here      <span class="op">=</span> os.path.dirname(os.path.abspath(<span class="st">"index.qmd"</span>))</span>
+<span id="cb27-8"><a href="http://localhost:3515/vector_deepdive.html#cb27-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-8"></a>chess_path <span class="op">=</span> os.path.join(_here, <span class="st">"Data"</span>, <span class="st">"chessboard.gpkg"</span>)</span>
+<span id="cb27-9"><a href="http://localhost:3515/vector_deepdive.html#cb27-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-9"></a></span>
+<span id="cb27-10"><a href="http://localhost:3515/vector_deepdive.html#cb27-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-10"></a><span class="co"># The GeoPackage has TWO layers:</span></span>
+<span id="cb27-11"><a href="http://localhost:3515/vector_deepdive.html#cb27-11" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-11"></a><span class="co">#   grid_orig = the centre cell (1 polygon)</span></span>
+<span id="cb27-12"><a href="http://localhost:3515/vector_deepdive.html#cb27-12" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-12"></a><span class="co">#   grid_dest = the 8 surrounding cells</span></span>
+<span id="cb27-13"><a href="http://localhost:3515/vector_deepdive.html#cb27-13" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-13"></a>centre_gdf <span class="op">=</span> gpd.read_file(chess_path, layer<span class="op">=</span><span class="st">"grid_orig"</span>)</span>
+<span id="cb27-14"><a href="http://localhost:3515/vector_deepdive.html#cb27-14" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-14"></a>dest_gdf   <span class="op">=</span> gpd.read_file(chess_path, layer<span class="op">=</span><span class="st">"grid_dest"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-15"><a href="http://localhost:3515/vector_deepdive.html#cb27-15" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-15"></a></span>
+<span id="cb27-16"><a href="http://localhost:3515/vector_deepdive.html#cb27-16" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-16"></a><span class="bu">print</span>(<span class="ss">f"Centre cells : </span><span class="sc">{</span><span class="bu">len</span>(centre_gdf)<span class="sc">}</span><span class="ss">  → </span><span class="sc">{</span>centre_gdf<span class="sc">.</span>geometry<span class="sc">.</span>iloc[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-17"><a href="http://localhost:3515/vector_deepdive.html#cb27-17" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-17"></a><span class="bu">print</span>(<span class="ss">f"Dest cells   : </span><span class="sc">{</span><span class="bu">len</span>(dest_gdf)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-18"><a href="http://localhost:3515/vector_deepdive.html#cb27-18" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-18"></a></span>
+<span id="cb27-19"><a href="http://localhost:3515/vector_deepdive.html#cb27-19" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-19"></a><span class="co"># Plot full chessboard (centre + 8 neighbours)</span></span>
+<span id="cb27-20"><a href="http://localhost:3515/vector_deepdive.html#cb27-20" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-20"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
+<span id="cb27-21"><a href="http://localhost:3515/vector_deepdive.html#cb27-21" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-21"></a>dest_gdf.plot(ax<span class="op">=</span>ax, edgecolor<span class="op">=</span><span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"lightgrey"</span>, linewidth<span class="op">=</span><span class="fl">1.2</span>)</span>
+<span id="cb27-22"><a href="http://localhost:3515/vector_deepdive.html#cb27-22" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-22"></a>centre_gdf.plot(ax<span class="op">=</span>ax, edgecolor<span class="op">=</span><span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"#2a9d8f"</span>, linewidth<span class="op">=</span><span class="fl">1.2</span>)</span>
+<span id="cb27-23"><a href="http://localhost:3515/vector_deepdive.html#cb27-23" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-23"></a>ax.set_title(<span class="st">"3x3 Chessboard (green = centre cell)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb27-24"><a href="http://localhost:3515/vector_deepdive.html#cb27-24" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-24"></a>ax.axis(<span class="st">"off"</span>)</span>
+<span id="cb27-25"><a href="http://localhost:3515/vector_deepdive.html#cb27-25" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-25"></a>plt.tight_layout()</span>
+<span id="cb27-26"><a href="http://localhost:3515/vector_deepdive.html#cb27-26" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb27-26"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Centre cells : 1  → POLYGON ((0.3333333333333333 0.3333333333333333, 0.6666666666666666 0.3333333333333333, 0.6666666666666666 0.6666666666666666, 0.3333333333333333 0.6666666666666666, 0.3333333333333333 0.3333333333333333))
+Dest cells   : 8</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./Vector Deepdive – week1-vector-deepdive_files/cell-16-output-2.png" width="355" height="373" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="1e81d751" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="http://localhost:3515/vector_deepdive.html#cb29-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-1"></a><span class="co"># Compute DE-9IM between the centre cell and each of the 8 surrounding cells</span></span>
+<span id="cb29-2"><a href="http://localhost:3515/vector_deepdive.html#cb29-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-2"></a>centre <span class="op">=</span> centre_gdf.geometry.iloc[<span class="dv">0</span>]</span>
+<span id="cb29-3"><a href="http://localhost:3515/vector_deepdive.html#cb29-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-3"></a></span>
+<span id="cb29-4"><a href="http://localhost:3515/vector_deepdive.html#cb29-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-4"></a>results <span class="op">=</span> []</span>
+<span id="cb29-5"><a href="http://localhost:3515/vector_deepdive.html#cb29-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-5"></a><span class="cf">for</span> i, row <span class="kw">in</span> dest_gdf.iterrows():</span>
+<span id="cb29-6"><a href="http://localhost:3515/vector_deepdive.html#cb29-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-6"></a>    b <span class="op">=</span> row.geometry</span>
+<span id="cb29-7"><a href="http://localhost:3515/vector_deepdive.html#cb29-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-7"></a>    <span class="cf">if</span> <span class="kw">not</span> centre.touches(b) <span class="kw">and</span> <span class="kw">not</span> centre.intersects(b):</span>
+<span id="cb29-8"><a href="http://localhost:3515/vector_deepdive.html#cb29-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-8"></a>        <span class="cf">continue</span></span>
+<span id="cb29-9"><a href="http://localhost:3515/vector_deepdive.html#cb29-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-9"></a>    deim_str <span class="op">=</span> centre.relate(b)</span>
+<span id="cb29-10"><a href="http://localhost:3515/vector_deepdive.html#cb29-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-10"></a>    bb_dim   <span class="op">=</span> deim_str[<span class="dv">4</span>]   <span class="co"># position [4] = B(A)∩B(B)</span></span>
+<span id="cb29-11"><a href="http://localhost:3515/vector_deepdive.html#cb29-11" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-11"></a>    rel <span class="op">=</span> (</span>
+<span id="cb29-12"><a href="http://localhost:3515/vector_deepdive.html#cb29-12" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-12"></a>        <span class="st">"edge-adjacent"</span>   <span class="cf">if</span> bb_dim <span class="op">==</span> <span class="st">"1"</span> <span class="cf">else</span></span>
+<span id="cb29-13"><a href="http://localhost:3515/vector_deepdive.html#cb29-13" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-13"></a>        <span class="st">"corner-adjacent"</span> <span class="cf">if</span> bb_dim <span class="op">==</span> <span class="st">"0"</span> <span class="cf">else</span></span>
+<span id="cb29-14"><a href="http://localhost:3515/vector_deepdive.html#cb29-14" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-14"></a>        <span class="st">"other"</span></span>
+<span id="cb29-15"><a href="http://localhost:3515/vector_deepdive.html#cb29-15" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-15"></a>    )</span>
+<span id="cb29-16"><a href="http://localhost:3515/vector_deepdive.html#cb29-16" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-16"></a>    results.append({<span class="st">"cell"</span>: i, <span class="st">"DE-9IM"</span>: deim_str, <span class="st">"BB dim"</span>: bb_dim, <span class="st">"type"</span>: rel})</span>
+<span id="cb29-17"><a href="http://localhost:3515/vector_deepdive.html#cb29-17" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-17"></a></span>
+<span id="cb29-18"><a href="http://localhost:3515/vector_deepdive.html#cb29-18" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-18"></a>df_deim <span class="op">=</span> pd.DataFrame(results)</span>
+<span id="cb29-19"><a href="http://localhost:3515/vector_deepdive.html#cb29-19" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-19"></a><span class="bu">print</span>(df_deim.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb29-20"><a href="http://localhost:3515/vector_deepdive.html#cb29-20" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-20"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Edge-adjacent cells    (King only) : </span><span class="sc">{</span>df_deim[df_deim[<span class="st">'BB dim'</span>]<span class="op">==</span><span class="st">'1'</span>][<span class="st">'cell'</span>]<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb29-21"><a href="http://localhost:3515/vector_deepdive.html#cb29-21" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb29-21"></a><span class="bu">print</span>(<span class="ss">f"Corner-adjacent cells  (Bishop)    : </span><span class="sc">{</span>df_deim[df_deim[<span class="st">'BB dim'</span>]<span class="op">==</span><span class="st">'0'</span>][<span class="st">'cell'</span>]<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> cell    DE-9IM BB dim            type
+    0 FF2F01212      0 corner-adjacent
+    1 FF2F11212      1   edge-adjacent
+    2 FF2F01212      0 corner-adjacent
+    3 FF2F11212      1   edge-adjacent
+    4 FF2F11212      1   edge-adjacent
+    5 FF2F01212      0 corner-adjacent
+    6 FF2F11212      1   edge-adjacent
+    7 FF2F01212      0 corner-adjacent
+
+Edge-adjacent cells    (King only) : [1, 3, 4, 6]
+Corner-adjacent cells  (Bishop)    : [0, 2, 5, 7]</code></pre>
+</div>
+</div>
+<div id="69822d17" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="http://localhost:3515/vector_deepdive.html#cb31-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb31-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- Representative DE-9IM strings ---"</span>)</span>
+<span id="cb31-2"><a href="http://localhost:3515/vector_deepdive.html#cb31-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb31-2"></a>edge_str   <span class="op">=</span> df_deim[df_deim[<span class="st">"BB dim"</span>] <span class="op">==</span> <span class="st">"1"</span>][<span class="st">"DE-9IM"</span>].iloc[<span class="dv">0</span>]</span>
+<span id="cb31-3"><a href="http://localhost:3515/vector_deepdive.html#cb31-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb31-3"></a>corner_str <span class="op">=</span> df_deim[df_deim[<span class="st">"BB dim"</span>] <span class="op">==</span> <span class="st">"0"</span>][<span class="st">"DE-9IM"</span>].iloc[<span class="dv">0</span>]</span>
+<span id="cb31-4"><a href="http://localhost:3515/vector_deepdive.html#cb31-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb31-4"></a><span class="bu">print</span>(<span class="ss">f"  Edge-adjacent    (share a full side)   : </span><span class="sc">{</span>edge_str<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb31-5"><a href="http://localhost:3515/vector_deepdive.html#cb31-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb31-5"></a><span class="bu">print</span>(<span class="ss">f"  Corner-adjacent  (share a single point): </span><span class="sc">{</span>corner_str<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Representative DE-9IM strings ---
+  Edge-adjacent    (share a full side)   : FF2F11212
+  Corner-adjacent  (share a single point): FF2F01212</code></pre>
+</div>
+</div>
+</section>
+<section id="manual-derivation" class="level3">
+<h3 class="anchored" data-anchor-id="manual-derivation">Manual derivation<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#manual-derivation" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<section id="a-kings-case-all-adjacent-cells-edge-diagonal" class="level4">
+<h4 class="anchored" data-anchor-id="a-kings-case-all-adjacent-cells-edge-diagonal">(a) King’s case – all adjacent cells (edge + diagonal)<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#a-kings-case-all-adjacent-cells-edge-diagonal" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h4>
+<p><strong>Edge-adjacent</strong> cells share a full side → B(A)∩B(B) is a <strong>line</strong> (<code>1</code>):</p>
+<pre><code>        I(B)  B(B)  E(B)
+I(A)  [  F  |  F  |  2  ]
+B(A)  [  F  | *1* |  1  ]
+E(A)  [  2  |  1  |  2  ]</code></pre>
+<p>→ DE-9IM = <strong><code>FF2F11212</code></strong></p>
+<ul>
+<li><code>I∩I = F</code>: open interiors of two touching polygons are disjoint — they don’t overlap.</li>
+<li><code>I(A)∩B(B) = F</code>: A’s open interior does not cross B’s boundary (the shared edge belongs to both boundaries, not A’s interior).</li>
+<li><code>B(A)∩I(B) = F</code>: symmetrically, B’s boundary does not enter A’s interior.</li>
+<li><code>B(A)∩B(B) = 1</code>: the shared edge is part of both boundaries → line intersection.</li>
+<li><code>I(A)∩E(B) = 2</code>: A’s interior lies entirely in B’s exterior → area.</li>
+</ul>
+<p><strong>Corner-adjacent</strong> cells share only one corner → B(A)∩B(B) is a <strong>point</strong> (<code>0</code>):</p>
+<pre><code>        I(B)  B(B)  E(B)
+I(A)  [  F  |  F  |  2  ]
+B(A)  [  F  | *0* |  1  ]
+E(A)  [  2  |  1  |  2  ]</code></pre>
+<p>→ DE-9IM = <strong><code>FF2F01212</code></strong></p>
+<ul>
+<li><code>B(A)∩B(B) = 0</code>: only the single shared corner → point intersection.</li>
+<li><code>I(A)∩B(B) = F</code>: the corner is on A’s boundary, not its open interior.</li>
+</ul>
+<p><strong>King’s case pattern</strong> — matches <em>both</em> sub-cases using a wildcard at position 4:</p>
+<p>→ <strong><code>FF2F*1212</code></strong></p>
+<ul>
+<li>Positions 0–3 = <code>FF2F</code>: identical in both cases.</li>
+<li>Position 4 (B∩B) = <code>*</code>: accepts both <code>1</code> (edge) and <code>0</code> (corner).</li>
+<li>Positions 5–8 = <code>1212</code>: identical in both cases.</li>
+</ul>
+</section>
+<section id="b-bishops-case-diagonal-cells-only" class="level4">
+<h4 class="anchored" data-anchor-id="b-bishops-case-diagonal-cells-only">(b) Bishop’s case – diagonal cells only<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#b-bishops-case-diagonal-cells-only" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h4>
+<p>The Bishop moves only diagonally → only <strong>corner-adjacent</strong> cells qualify.<br>
+The DE-9IM must <strong>exclude</strong> edge-adjacent (BB = <code>1</code>) and <strong>include</strong> only corner-adjacent (BB = <code>0</code>):</p>
+<p>→ <strong><code>FF2F01212</code></strong></p>
+<p>The discriminator is position <code>[4]</code> = <code>0</code> (point), which is impossible for edge-adjacent cells.</p>
+</section>
+</section>
+<section id="visualisation" class="level3">
+<h3 class="anchored" data-anchor-id="visualisation">Visualisation<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#visualisation" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<div id="7399bf38" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="http://localhost:3515/vector_deepdive.html#cb35-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">4.5</span>))</span>
+<span id="cb35-2"><a href="http://localhost:3515/vector_deepdive.html#cb35-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-2"></a></span>
+<span id="cb35-3"><a href="http://localhost:3515/vector_deepdive.html#cb35-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-3"></a>edge_cells   <span class="op">=</span> df_deim[df_deim[<span class="st">"BB dim"</span>] <span class="op">==</span> <span class="st">"1"</span>][<span class="st">"cell"</span>].tolist()</span>
+<span id="cb35-4"><a href="http://localhost:3515/vector_deepdive.html#cb35-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-4"></a>corner_cells <span class="op">=</span> df_deim[df_deim[<span class="st">"BB dim"</span>] <span class="op">==</span> <span class="st">"0"</span>][<span class="st">"cell"</span>].tolist()</span>
+<span id="cb35-5"><a href="http://localhost:3515/vector_deepdive.html#cb35-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-5"></a></span>
+<span id="cb35-6"><a href="http://localhost:3515/vector_deepdive.html#cb35-6" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-6"></a><span class="cf">for</span> ax, (title, show_edge, show_corner) <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb35-7"><a href="http://localhost:3515/vector_deepdive.html#cb35-7" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-7"></a>    axes,</span>
+<span id="cb35-8"><a href="http://localhost:3515/vector_deepdive.html#cb35-8" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-8"></a>    [</span>
+<span id="cb35-9"><a href="http://localhost:3515/vector_deepdive.html#cb35-9" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-9"></a>        (<span class="st">"King's case</span><span class="ch">\n</span><span class="st">(edge + corner neighbours)"</span>, <span class="va">True</span>,  <span class="va">True</span>),</span>
+<span id="cb35-10"><a href="http://localhost:3515/vector_deepdive.html#cb35-10" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-10"></a>        (<span class="st">"Bishop's case</span><span class="ch">\n</span><span class="st">(corner neighbours only)"</span>, <span class="va">False</span>, <span class="va">True</span>),</span>
+<span id="cb35-11"><a href="http://localhost:3515/vector_deepdive.html#cb35-11" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-11"></a>    ]</span>
+<span id="cb35-12"><a href="http://localhost:3515/vector_deepdive.html#cb35-12" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-12"></a>):</span>
+<span id="cb35-13"><a href="http://localhost:3515/vector_deepdive.html#cb35-13" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-13"></a>    <span class="co"># Draw all 8 dest cells in neutral colour</span></span>
+<span id="cb35-14"><a href="http://localhost:3515/vector_deepdive.html#cb35-14" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-14"></a>    dest_gdf.plot(ax<span class="op">=</span>ax, edgecolor<span class="op">=</span><span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"whitesmoke"</span>, linewidth<span class="op">=</span><span class="fl">1.2</span>)</span>
+<span id="cb35-15"><a href="http://localhost:3515/vector_deepdive.html#cb35-15" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-15"></a></span>
+<span id="cb35-16"><a href="http://localhost:3515/vector_deepdive.html#cb35-16" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-16"></a>    <span class="co"># Highlight edge-adjacent neighbours</span></span>
+<span id="cb35-17"><a href="http://localhost:3515/vector_deepdive.html#cb35-17" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-17"></a>    <span class="cf">if</span> show_edge:</span>
+<span id="cb35-18"><a href="http://localhost:3515/vector_deepdive.html#cb35-18" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-18"></a>        dest_gdf.iloc[edge_cells].plot(ax<span class="op">=</span>ax, facecolor<span class="op">=</span><span class="st">"#e76f51"</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb35-19"><a href="http://localhost:3515/vector_deepdive.html#cb35-19" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-19"></a></span>
+<span id="cb35-20"><a href="http://localhost:3515/vector_deepdive.html#cb35-20" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-20"></a>    <span class="co"># Highlight corner-adjacent neighbours</span></span>
+<span id="cb35-21"><a href="http://localhost:3515/vector_deepdive.html#cb35-21" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-21"></a>    <span class="cf">if</span> show_corner:</span>
+<span id="cb35-22"><a href="http://localhost:3515/vector_deepdive.html#cb35-22" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-22"></a>        dest_gdf.iloc[corner_cells].plot(ax<span class="op">=</span>ax, facecolor<span class="op">=</span><span class="st">"#f4a261"</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb35-23"><a href="http://localhost:3515/vector_deepdive.html#cb35-23" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-23"></a></span>
+<span id="cb35-24"><a href="http://localhost:3515/vector_deepdive.html#cb35-24" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-24"></a>    <span class="co"># Draw centre cell on top</span></span>
+<span id="cb35-25"><a href="http://localhost:3515/vector_deepdive.html#cb35-25" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-25"></a>    centre_gdf.plot(ax<span class="op">=</span>ax, facecolor<span class="op">=</span><span class="st">"#2a9d8f"</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb35-26"><a href="http://localhost:3515/vector_deepdive.html#cb35-26" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-26"></a></span>
+<span id="cb35-27"><a href="http://localhost:3515/vector_deepdive.html#cb35-27" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-27"></a>    ax.set_title(title, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb35-28"><a href="http://localhost:3515/vector_deepdive.html#cb35-28" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-28"></a>    ax.axis(<span class="st">"off"</span>)</span>
+<span id="cb35-29"><a href="http://localhost:3515/vector_deepdive.html#cb35-29" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-29"></a></span>
+<span id="cb35-30"><a href="http://localhost:3515/vector_deepdive.html#cb35-30" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-30"></a>plt.suptitle(</span>
+<span id="cb35-31"><a href="http://localhost:3515/vector_deepdive.html#cb35-31" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-31"></a>    <span class="st">"Green = centre (grid_orig) | Dark orange = edge-adjacent | Light orange = corner-adjacent"</span>,</span>
+<span id="cb35-32"><a href="http://localhost:3515/vector_deepdive.html#cb35-32" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-32"></a>    fontsize<span class="op">=</span><span class="dv">9</span>, y<span class="op">=</span><span class="fl">1.02</span></span>
+<span id="cb35-33"><a href="http://localhost:3515/vector_deepdive.html#cb35-33" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-33"></a>)</span>
+<span id="cb35-34"><a href="http://localhost:3515/vector_deepdive.html#cb35-34" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-34"></a>plt.tight_layout()</span>
+<span id="cb35-35"><a href="http://localhost:3515/vector_deepdive.html#cb35-35" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb35-35"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./Vector Deepdive – week1-vector-deepdive_files/cell-19-output-1.png" width="830" height="445" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="summary-table" class="level3">
+<h3 class="anchored" data-anchor-id="summary-table">Summary table<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:3515/vector_deepdive.html#summary-table" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 15%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Case</th>
+<th>Relationship</th>
+<th style="text-align: center;">B(A)∩B(B)</th>
+<th style="text-align: center;">DE-9IM string</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>King (edge-adjacent)</td>
+<td>share full edge</td>
+<td style="text-align: center;">Line <code>1</code></td>
+<td style="text-align: center;"><code>FF2F11212</code></td>
+</tr>
+<tr class="even">
+<td>King (corner-adjacent)</td>
+<td>share corner point</td>
+<td style="text-align: center;">Point <code>0</code></td>
+<td style="text-align: center;"><code>FF2F01212</code></td>
+</tr>
+<tr class="odd">
+<td><strong>King (combined pattern)</strong></td>
+<td>edge OR corner</td>
+<td style="text-align: center;"><code>*</code> (any)</td>
+<td style="text-align: center;"><strong><code>FF2F*1212</code></strong></td>
+</tr>
+<tr class="even">
+<td><strong>Bishop</strong></td>
+<td>corner point only</td>
+<td style="text-align: center;">Point <code>0</code></td>
+<td style="text-align: center;"><strong><code>FF2F01212</code></strong></td>
+</tr>
+</tbody>
+</table>
+<p>In PostGIS / DuckDB spatial you would use:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb36-1"><a href="http://localhost:3515/vector_deepdive.html#cb36-1" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb36-1"></a><span class="co">-- King's case (all 8 neighbours)</span></span>
+<span id="cb36-2"><a href="http://localhost:3515/vector_deepdive.html#cb36-2" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb36-2"></a><span class="kw">WHERE</span> ST_Relate(a.geom, b.geom, <span class="st">'FF2F*1212'</span>)</span>
+<span id="cb36-3"><a href="http://localhost:3515/vector_deepdive.html#cb36-3" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb36-3"></a></span>
+<span id="cb36-4"><a href="http://localhost:3515/vector_deepdive.html#cb36-4" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb36-4"></a><span class="co">-- Bishop's case (only diagonal neighbours)</span></span>
+<span id="cb36-5"><a href="http://localhost:3515/vector_deepdive.html#cb36-5" aria-hidden="true" tabindex="-1" data-original-href="http://localhost:3515/vector_deepdive.html#cb36-5"></a><span class="kw">WHERE</span> ST_Relate(a.geom, b.geom, <span class="st">'FF2F01212'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+
+<script>
+  window.backupDefine = window.define;
+  window.define = undefined;
+</script>
+<script type="text/javascript" src="./Vector Deepdive – week1-vector-deepdive_files/quarto-preview.js.download"></script>
+<script>
+  window.define = window.backupDefine;
+  window.backupDefine = undefined;
+</script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    window.QuartoPreview.init({
+      origin: "http://localhost:3515",
+      search: "?quartoPreviewReqId=1772490207086&amp;quartoPreviewThemeCategory=light",
+      inputFile: "C:\Users\chaen\Documents\ADLS_Data\Spatial-temporal Data Science\week1-vector-deepdive\vector_deepdive.qmd",
+      isPresentation: false
+    });
+  })
+</script>
+<div><div dir="ltr" class="fui-FluentProvider fui-FluentProviderr0 ___jdtuxv0 f19n0e5 fxugw4r f1o700av fk6fouc fkhj508 figsok6 f1i3iumi"></div></div><i tabindex="0" role="none" data-tabster-dummy="" aria-hidden="true" style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"></i></body></html>
