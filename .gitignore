@@ -1,0 +1,16 @@
+# Large geodata files — do NOT push to GitHub
+Data/
+
+# Quarto output
+/.quarto/
+
+# R session artifacts
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# macOS
+.DS_Store
+
+**/*.quarto_ipynb

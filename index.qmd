@@ -1,0 +1,564 @@
+---
+title: "Vector Deepdive"
+author: "Chantal Fuchs"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    theme: flatly
+engine: knitr
+---
+
+# Solutions for Vector Deepdive
+
+::: {.callout-note}
+**Declaration of AI Use:** Parts of this submission were developed with the
+assistance of Claude (Anthropic). The AI was used to help with code structure, debugging, and R syntax. All results were verified by me.
+:::
+
+---
+
+## Setup
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+
+library(sf)
+library(dplyr)
+library(tidyr)
+library(tictoc)
+library(ggplot2)
+library(knitr)
+library(duckdb)
+
+# Data paths
+path_tlm   <- "Data/SWISSTLM3D_2026_LV95_LN02.gpkg"
+path_bound <- "Data/swissBOUNDARIES3D_1_5_LV95_LN02.gpkg"
+path_db    <- "Data/wald-kantone.duckdb"
+path_chess <- "Data/chessboard.gpkg"
+
+# Layer names
+layer_cantons <- "tlm_kantonsgebiet"
+layer_forest  <- "tlm_bb_bodenbedeckung"
+```
+
+---
+
+## Task 1 – Forest percentage per canton (`sf`)
+
+The goal is to find out how much of each Swiss canton is covered by forest.
+I use the `swissTLM3D` dataset for the forest polygons and `swissBOUNDARIES3D`
+for the canton boundaries, then clip the forest to each canton and calculate
+the percentage.
+
+### Step 1: Load canton boundaries
+
+```{r}
+#| label: sf-step1
+
+tictoc::tic(msg = "sf | Step 1: Load canton boundaries")
+
+cantons <- sf::st_read(path_bound, layer = layer_cantons, quiet = TRUE)
+cantons <- sf::st_zm(cantons)  # drop Z dimension
+
+tictoc::toc(log = TRUE)
+
+cat("CRS:     ", st_crs(cantons)$epsg, "\n")
+cat("Cantons: ", nrow(cantons), "\n")
+```
+
+### Step 2: Load and filter forest polygons
+
+```{r}
+#| label: sf-step2
+
+tictoc::tic(msg = "sf | Step 2: Load and filter forest polygons")
+
+forest <- sf::st_read(path_tlm, layer = layer_forest, quiet = TRUE)
+forest <- sf::st_zm(forest)
+forest <- forest[forest$objektart == "Wald", ]
+
+tictoc::toc(log = TRUE)
+
+cat("Forest polygons:", nrow(forest), "\n")
+```
+
+### Step 3: Align CRS
+
+```{r}
+#| label: sf-step3
+
+tictoc::tic(msg = "sf | Step 3: Align CRS")
+
+cat("Canton CRS:", st_crs(cantons)$epsg, "\n")
+cat("Forest CRS:", st_crs(forest)$epsg,  "\n")
+
+if (st_crs(cantons) != st_crs(forest)) {
+  forest <- sf::st_transform(forest, st_crs(cantons))
+}
+
+tictoc::toc(log = TRUE)
+```
+
+### Step 4: Spatial intersection
+
+```{r}
+#| label: sf-step4
+
+tictoc::tic(msg = "sf | Step 4: Intersect forest with cantons")
+
+suppressWarnings({
+  forest_canton <- sf::st_intersection(
+    forest,
+    cantons["name"]
+  )
+})
+
+forest_canton$forest_area_m2 <- as.numeric(sf::st_area(forest_canton))
+
+tictoc::toc(log = TRUE)
+
+cat("Intersection rows:", nrow(forest_canton), "\n")
+```
+
+### Step 5: Calculate forest percentage per canton
+
+```{r}
+#| label: sf-step5
+
+tictoc::tic(msg = "sf | Step 5: Calculate forest % per canton")
+
+cantons$canton_area_m2 <- as.numeric(sf::st_area(cantons))
+
+forest_sum <- forest_canton |>
+  sf::st_drop_geometry() |>
+  group_by(name) |>
+  summarise(forest_area_m2 = sum(forest_area_m2, na.rm = TRUE), .groups = "drop")
+
+result_sf <- cantons |>
+  sf::st_drop_geometry() |>
+  select(name, canton_area_m2) |>
+  left_join(forest_sum, by = "name") |>
+  mutate(
+    forest_area_m2 = replace_na(forest_area_m2, 0),
+    forest_pct     = (forest_area_m2 / canton_area_m2) * 100
+  ) |>
+  arrange(desc(forest_pct))
+
+sf_total <- tictoc::toc(log = TRUE)
+
+cat(sprintf("sf total time: %.2f s\n",
+    sum(sapply(tictoc::tic.log(format=FALSE), function(x) x$toc - x$tic))))
+```
+
+### Results — Table
+
+```{r}
+#| label: sf-table
+
+kable(
+  result_sf |>
+    mutate(
+      `Canton Area (km²)` = round(canton_area_m2 / 1e6, 1),
+      `Forest Area (km²)` = round(forest_area_m2 / 1e6, 1),
+      `Forest (%)`        = round(forest_pct, 2)
+    ) |>
+    select(Canton = name,
+           `Canton Area (km²)`,
+           `Forest Area (km²)`,
+           `Forest (%)`),
+  caption = "Forest coverage per Swiss canton (sf)"
+)
+```
+
+### Results — Bar chart
+
+```{r}
+#| label: sf-barplot
+#| fig-width: 10
+#| fig-height: 6
+
+ggplot(result_sf,
+       aes(x = reorder(name, forest_pct), y = forest_pct,
+           fill = forest_pct)) +
+  geom_col() +
+  geom_hline(yintercept = mean(result_sf$forest_pct),
+             colour = "tomato", linetype = "dashed", linewidth = 0.8) +
+  annotate("text", x = 2, y = mean(result_sf$forest_pct) + 1,
+           label = sprintf("Swiss avg: %.1f%%", mean(result_sf$forest_pct)),
+           colour = "tomato", size = 3.5) +
+  scale_fill_gradient(low = "#d4edda", high = "#1a5c30", name = "Forest (%)") +
+  coord_flip() +
+  labs(
+    title    = "Forest Coverage per Swiss Canton",
+    subtitle = "Source: swissTLM3D 2026 × swissBOUNDARIES3D 1.5",
+    x        = NULL,
+    y        = "Forest cover (%)"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+### Results — Choropleth map
+
+```{r}
+#| label: sf-map
+#| fig-width: 10
+#| fig-height: 7
+
+cantons_map <- cantons |>
+  left_join(result_sf |> select(name, forest_pct), by = "name")
+
+ggplot(cantons_map) +
+  geom_sf(aes(fill = forest_pct), colour = "white", linewidth = 0.4) +
+  scale_fill_gradient(low = "#d4edda", high = "#1a5c30", name = "Forest (%)") +
+  geom_sf_text(aes(label = paste0(substr(name, 1, 3), "\n",
+                                   round(forest_pct, 0), "%")),
+               size = 2.2, colour = "black") +
+  labs(
+    title    = "Forest Cover per Canton",
+    subtitle = "swissTLM3D 2026 × swissBOUNDARIES3D 1.5"
+  ) +
+  theme_void(base_size = 11) +
+  theme(legend.position = "right")
+```
+
+---
+
+## Task 2 – Forest percentage per canton (DuckDB)
+
+Same analysis as Task 1, but using a pre-prepared DuckDB database
+(`wald-kantone.duckdb`) instead of loading the raw files. The idea is to
+see whether a SQL-based approach is faster.
+
+```{r}
+#| label: duckdb-setup
+
+library(DBI)
+
+con <- duckdb::dbConnect(duckdb::duckdb(), path_db, read_only = TRUE)
+DBI::dbExecute(con, "INSTALL spatial; LOAD spatial;")
+
+tables <- DBI::dbGetQuery(con, "SHOW TABLES")
+cat("Tables in database:\n")
+print(tables)
+
+cat("\nwald columns:\n")
+print(DBI::dbGetQuery(con, "DESCRIBE wald"))
+cat("\nkantone columns:\n")
+print(DBI::dbGetQuery(con, "DESCRIBE kantone"))
+```
+
+```{r}
+#| label: duckdb-query
+
+tictoc::tic(msg = "DuckDB | Full query: intersection + aggregation")
+
+result_duckdb <- DBI::dbGetQuery(con, "
+  WITH
+    canton_areas AS (
+      SELECT
+        name                  AS canton_name,
+        ST_Area(geom)         AS canton_area_m2,
+        geom                  AS canton_geom
+      FROM kantone
+    ),
+    forest_per_canton AS (
+      SELECT
+        c.canton_name,
+        c.canton_area_m2,
+        SUM(ST_Area(ST_Intersection(w.geom, c.canton_geom))) AS forest_area_m2
+      FROM wald         AS w
+      JOIN canton_areas AS c
+        ON ST_Intersects(w.geom, c.canton_geom)
+      GROUP BY c.canton_name, c.canton_area_m2
+    )
+  SELECT
+    canton_name,
+    ROUND(canton_area_m2  / 1e6, 2) AS canton_area_km2,
+    ROUND(forest_area_m2  / 1e6, 2) AS forest_area_km2,
+    ROUND(forest_area_m2 / canton_area_m2 * 100, 2) AS forest_pct
+  FROM forest_per_canton
+  ORDER BY forest_pct DESC
+")
+
+tictoc::toc(log = TRUE)
+DBI::dbDisconnect(con)
+```
+
+### Results
+
+```{r}
+#| label: duckdb-table
+
+kable(result_duckdb,
+      col.names = c("Canton", "Canton Area (km²)",
+                    "Forest Area (km²)", "Forest (%)"),
+      caption = "Forest coverage per Swiss canton (DuckDB)")
+```
+
+### Execution time comparison
+
+```{r}
+#| label: timing-comparison
+
+log_raw <- tictoc::tic.log(format = FALSE)
+
+all_times <- sapply(log_raw, function(x) as.numeric(x$toc - x$tic))
+all_names <- sapply(log_raw, function(x) x$msg)
+
+sf_time     <- sum(all_times[!grepl("DuckDB", all_names)])
+duckdb_time <- sum(all_times[grepl("DuckDB", all_names)])
+
+cat(sprintf("sf total time    : %.2f s\n", sf_time))
+cat(sprintf("DuckDB total time: %.2f s\n", duckdb_time))
+if (duckdb_time > 0) {
+  cat(sprintf("Speedup          : %.1fx\n", sf_time / duckdb_time))
+}
+
+data.frame(
+  Approach = c("sf", "DuckDB"),
+  time_sec = c(sf_time, duckdb_time)
+) |>
+  ggplot(aes(x = reorder(Approach, time_sec), y = time_sec, fill = Approach)) +
+  geom_col(width = 0.5, show.legend = FALSE) +
+  scale_fill_manual(values = c("sf" = "#4a90d9", "DuckDB" = "#f5a623")) +
+  coord_flip() +
+  labs(title = "Execution Time: sf vs DuckDB",
+       x = NULL, y = "Total time (seconds)") +
+  theme_minimal()
+```
+
+### Discussion
+
+I had no prior experience with either `sf` or DuckDB before this course, so
+getting the code to run at all was already a challenge. One thing that surprised me early on was just how long loading the data takes — filtering the forest polygons alone took over 80 seconds, which I did not expect for what felt like
+a simple step.
+
+Looking at the results, Ticino stands out with over 42% forest cover. This makes sense geographically since it is a mountainous, heavily forested canton. On the other end, Geneva and Basel-Stadt are below 12%, which also makes sense as they are mostly urban. I had not expected the difference between cantons to be quite
+so large.
+
+For the timing comparison, DuckDB was about 2.4x faster than `sf`, 
+which actually surprised me — I had expected the difference to be 
+smaller since both tools use the same underlying GEOS library for 
+the geometry calculations. Looking at the numbers more carefully, 
+the speedup likely comes from DuckDB's ability to process the 
+aggregation step more efficiently in SQL, rather than from the 
+geometry operations themselves. With an even larger dataset, the 
+advantage would probably be bigger since DuckDB can stream data 
+without loading everything into memory at once, while `sf` has to 
+hold it all in RAM.
+
+---
+
+## Task 3 – DE-9IM: King's case & Bishop's case
+
+The DE-9IM (Dimensionally Extended 9-Intersection Model) is a way to describe the spatial relationship between two geometries. It looks at how the interior, boundary, and exterior of two shapes intersect, and encodes this as a 9-character string. For this task, I use it to distinguish between cells that share a full
+edge (like a King's move) versus cells that only share a corner (like a Bishop's
+move).
+
+| | **I(B)** | **B(B)** | **E(B)** |
+|:---|:---:|:---:|:---:|
+| **I(A)** | `[0]` | `[1]` | `[2]` |
+| **B(A)** | `[3]` | **`[4]`** | `[5]` |
+| **E(A)** | `[6]` | `[7]` | `[8]` |
+
+Symbols: `F` = empty, `0` = point, `1` = line, `2` = area, `*` = any.
+
+The key position is `[4]` — the boundary-boundary intersection — which tells
+us whether two cells share an edge (line = `1`) or only a corner (point = `0`).
+
+### Load chessboard and compute DE-9IM strings
+
+```{r}
+#| label: chess-load
+#| message: false
+#| warning: false
+
+centre_sf <- sf::st_read(path_chess, layer = "grid_orig", quiet = TRUE) |>
+  sf::st_zm() |>
+  sf::st_make_valid()
+
+dest_sf <- sf::st_read(path_chess, layer = "grid_dest", quiet = TRUE) |>
+  sf::st_zm() |>
+  sf::st_make_valid()
+
+sf::st_crs(centre_sf) <- NA
+sf::st_crs(dest_sf)   <- NA
+
+cat("Centre cells:", nrow(centre_sf), "\n")
+cat("Dest cells:  ", nrow(dest_sf), "\n")
+
+ggplot() +
+  geom_sf(data = dest_sf,   fill = "lightgrey", colour = "black",
+          linewidth = 1, inherit.aes = FALSE) +
+  geom_sf(data = centre_sf, fill = "#2a9d8f",   colour = "black",
+          linewidth = 1, inherit.aes = FALSE) +
+  labs(title = "3×3 Chessboard",
+       subtitle = "Green = centre cell (grid_orig)") +
+  theme_void()
+```
+
+```{r}
+#| label: chess-deim
+
+rel_matrix <- sf::st_relate(centre_sf, dest_sf, sparse = FALSE)
+
+results <- lapply(seq_len(nrow(dest_sf)), function(i) {
+  deim_str <- rel_matrix[1, i]
+  bb_dim   <- substr(deim_str, 5, 5)
+  rel <- dplyr::case_when(
+    bb_dim == "1" ~ "edge-adjacent",
+    bb_dim == "0" ~ "corner-adjacent",
+    TRUE          ~ "other"
+  )
+  data.frame(cell = i, `DE-9IM` = deim_str,
+             `BB dim` = bb_dim, type = rel,
+             check.names = FALSE)
+})
+
+df_deim <- do.call(rbind, results)
+kable(df_deim, caption = "DE-9IM strings for each surrounding cell")
+
+cat("\nEdge-adjacent cells (King):    ",
+    df_deim$cell[df_deim$`BB dim` == "1"], "\n")
+cat("Corner-adjacent cells (Bishop):",
+    df_deim$cell[df_deim$`BB dim` == "0"], "\n")
+```
+
+### Manual derivation
+
+#### (a) King's case – all adjacent cells (edge + diagonal)
+
+**Edge-adjacent** cells share a full side → B(A)∩B(B) is a **line** (`1`):
+
+```
+        I(B)  B(B)  E(B)
+I(A)  [  F  |  F  |  2  ]
+B(A)  [  F  | *1* |  1  ]
+E(A)  [  2  |  1  |  2  ]
+```
+
+→ DE-9IM = **`FF2F11212`**
+
+- `I∩I = F`: the interiors of two touching polygons don't overlap.
+- `B(A)∩B(B) = 1`: the shared edge is part of both boundaries → line.
+- `I(A)∩E(B) = 2`: A's interior is entirely outside B → area.
+
+**Corner-adjacent** cells only share a single point → B(A)∩B(B) is a **point** (`0`):
+
+```
+        I(B)  B(B)  E(B)
+I(A)  [  F  |  F  |  2  ]
+B(A)  [  F  | *0* |  1  ]
+E(A)  [  2  |  1  |  2  ]
+```
+
+→ DE-9IM = **`FF2F01212`**
+
+**King's case pattern** — covers both edge and corner neighbours using a wildcard:
+
+→ **`FF2F*1212`**
+
+#### (b) Bishop's case – diagonal cells only
+
+The Bishop only moves diagonally, so only corner-adjacent cells count.
+Position `[4]` must be `0` (point) to exclude edge-adjacent cells:
+
+→ **`FF2F01212`**
+
+### Visualisation
+
+```{r}
+#| label: chess-plot
+#| fig-width: 10
+#| fig-height: 5
+
+edge_idx   <- df_deim$cell[df_deim$`BB dim` == "1"]
+corner_idx <- df_deim$cell[df_deim$`BB dim` == "0"]
+
+dest_sf$type <- dplyr::case_when(
+  seq_len(nrow(dest_sf)) %in% edge_idx   ~ "Edge-adjacent (King)",
+  seq_len(nrow(dest_sf)) %in% corner_idx ~ "Corner-adjacent (Bishop)",
+  TRUE                                    ~ "Other"
+)
+
+p_king <- ggplot() +
+  geom_sf(data = dest_sf,
+          aes(fill = ifelse(type %in% c("Edge-adjacent (King)",
+                                        "Corner-adjacent (Bishop)"),
+                            type, "Other")),
+          colour = "black", linewidth = 1) +
+  geom_sf(data = centre_sf, fill = "#2a9d8f", colour = "black", linewidth = 1.5) +
+  scale_fill_manual(
+    values = c("Edge-adjacent (King)"     = "#e76f51",
+               "Corner-adjacent (Bishop)" = "#f4a261",
+               "Other"                    = "whitesmoke"),
+    name = NULL
+  ) +
+  labs(title = "King's case", subtitle = "Edge + corner neighbours") +
+  theme_void() +
+  theme(legend.position = "bottom")
+
+p_bishop <- ggplot() +
+  geom_sf(data = dest_sf,
+          aes(fill = ifelse(type == "Corner-adjacent (Bishop)",
+                            type, "Other")),
+          colour = "black", linewidth = 1) +
+  geom_sf(data = centre_sf, fill = "#2a9d8f", colour = "black", linewidth = 1.5) +
+  scale_fill_manual(
+    values = c("Corner-adjacent (Bishop)" = "#f4a261",
+               "Other"                    = "whitesmoke"),
+    name = NULL
+  ) +
+  labs(title = "Bishop's case", subtitle = "Corner neighbours only") +
+  theme_void() +
+  theme(legend.position = "bottom")
+
+library(patchwork)
+p_king + p_bishop
+```
+
+### Summary table
+
+| Case | Relationship | B(A)∩B(B) | DE-9IM |
+|------|---|:---:|:---:|
+| King (edge-adjacent) | share full edge | Line `1` | `FF2F11212` |
+| King (corner-adjacent) | share corner point | Point `0` | `FF2F01212` |
+| **King (combined)** | edge OR corner | `*` | **`FF2F*1212`** |
+| **Bishop** | corner only | Point `0` | **`FF2F01212`** |
+
+In PostGIS / DuckDB spatial:
+
+```sql
+-- King's case (all 8 neighbours)
+WHERE ST_Relate(a.geom, b.geom, 'FF2F*1212')
+
+-- Bishop's case (diagonal only)
+WHERE ST_Relate(a.geom, b.geom, 'FF2F01212')
+```
+
+
+### Reflection
+
+Task 3 was conceptually the most challenging part for me. The DE-9IM string
+is not something I had encountered before, and it took a while to understand
+what the 9 positions actually represent.
+
+What helped was focusing on position [4] — the boundary-boundary intersection.
+Once I understood that this single character is what distinguishes a shared
+edge (line = `1`) from a shared corner (point = `0`), the rest followed
+quite naturally.
+
+What I found interesting is that the King and Bishop patterns share almost
+the same DE-9IM string — the only difference is that one character. This
+shows how precise the model is: it can distinguish two very similar spatial
+relationships just from that one position.
+
+If I were to use this in practice, I could see it being useful for things
+like network analysis — for example, checking whether two road segments
+truly share an edge or only touch at a point, which would affect routing
+differently.
