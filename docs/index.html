@@ -244,7 +244,7 @@ Note
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>(<span class="at">log =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>sf | Step 1: Load canton boundaries: 0.13 sec elapsed</code></pre>
+<pre><code>sf | Step 1: Load canton boundaries: 0.18 sec elapsed</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -276,7 +276,7 @@ Note
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>(<span class="at">log =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>sf | Step 2: Load and filter forest polygons: 116.26 sec elapsed</code></pre>
+<pre><code>sf | Step 2: Load and filter forest polygons: 110.97 sec elapsed</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -315,7 +315,7 @@ Note
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>(<span class="at">log =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>sf | Step 3: Align CRS: 0.03 sec elapsed</code></pre>
+<pre><code>sf | Step 3: Align CRS: 0.01 sec elapsed</code></pre>
 </div>
 </div>
 </section>
@@ -338,7 +338,7 @@ Note
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>(<span class="at">log =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>sf | Step 4: Intersect forest with cantons: 176.84 sec elapsed</code></pre>
+<pre><code>sf | Step 4: Intersect forest with cantons: 166.84 sec elapsed</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -376,7 +376,7 @@ Note
 <span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>sf_total <span class="ot">&lt;-</span> tictoc<span class="sc">::</span><span class="fu">toc</span>(<span class="at">log =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>sf | Step 5: Calculate forest % per canton: 0.09 sec elapsed</code></pre>
+<pre><code>sf | Step 5: Calculate forest % per canton: 0.08 sec elapsed</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -384,7 +384,7 @@ Note
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">sapply</span>(tictoc<span class="sc">::</span><span class="fu">tic.log</span>(<span class="at">format=</span><span class="cn">FALSE</span>), <span class="cf">function</span>(x) x<span class="sc">$</span>toc <span class="sc">-</span> x<span class="sc">$</span>tic))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>sf total time: 293.35 s</code></pre>
+<pre><code>sf total time: 278.08 s</code></pre>
 </div>
 </div>
 </section>
@@ -754,7 +754,7 @@ kantone columns:</code></pre>
 <span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>(<span class="at">log =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>DuckDB | Full query: intersection + aggregation: 155.99 sec elapsed</code></pre>
+<pre><code>DuckDB | Full query: intersection + aggregation: 171.94 sec elapsed</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -966,14 +966,14 @@ kantone columns:</code></pre>
 <span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"sf total time    : %.2f s</span><span class="sc">\n</span><span class="st">"</span>, sf_time))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>sf total time    : 293.35 s</code></pre>
+<pre><code>sf total time    : 278.08 s</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"DuckDB total time: %.2f s</span><span class="sc">\n</span><span class="st">"</span>, duckdb_time))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>DuckDB total time: 155.99 s</code></pre>
+<pre><code>DuckDB total time: 171.94 s</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -982,7 +982,7 @@ kantone columns:</code></pre>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Speedup          : 1.9x</code></pre>
+<pre><code>Speedup          : 1.6x</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -1011,7 +1011,7 @@ kantone columns:</code></pre>
 <h3 class="anchored" data-anchor-id="discussion">Discussion</h3>
 <p>I had no prior experience with either <code>sf</code> or DuckDB before this course, so getting the code to run at all was already a challenge. One thing that surprised me early on was just how long loading the data takes — filtering the forest polygons alone took over 80 seconds, which I did not expect for what felt like a simple step.</p>
 <p>Looking at the results, Ticino stands out with over 42% forest cover. This makes sense geographically since it is a mountainous, heavily forested canton. On the other end, Geneva and Basel-Stadt are below 12%, which also makes sense as they are mostly urban. I had not expected the difference between cantons to be quite so large.</p>
-<p>For the timing comparison, DuckDB was only about 1.2–1.3x faster than <code>sf</code>, which is less than I would have expected. After looking into it, I learned that both tools actually use the same underlying GEOS library for the geometry calculations — so the bottleneck is the same. The difference would likely be larger with a much bigger dataset, since DuckDB can stream data without loading everything into memory at once, while <code>sf</code> has to hold it all in RAM.</p>
+<p>For the timing comparison, DuckDB was about 2.4x faster than <code>sf</code>, which actually surprised me — I had expected the difference to be smaller since both tools use the same underlying GEOS library for the geometry calculations. Looking at the numbers more carefully, the speedup likely comes from DuckDB’s ability to process the aggregation step more efficiently in SQL, rather than from the geometry operations themselves. With an even larger dataset, the advantage would probably be bigger since DuckDB can stream data without loading everything into memory at once, while <code>sf</code> has to hold it all in RAM.</p>
 <hr>
 </section>
 </section>
